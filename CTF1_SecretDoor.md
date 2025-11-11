@@ -112,13 +112,23 @@ def encrypt_char(x):
 so for example,
 ord('r') = 114
 len("secret.png") = 10
-114 ^ 10 = 124 (this number becomes the "encrypted" value
+
+  	114 = 01110010
+xor  10 = 00001010
+------------------
+      	= 01111000
+	  	= 120
+
+114 ^ 10 = 120 (this number becomes the "encrypted" value
 
 ```
 msg = map(encrypt_char, msg[::-1])
 ```
 
-Then above line will reverse the whole message with msg[::-1]
+Then above line will reverse the whole message with msg[::-1].
+So "random" becomes "modnar".
+and map(encrypt_char,   ) applies the encryption to EACH character in that reversed message.
+
 
 
 
