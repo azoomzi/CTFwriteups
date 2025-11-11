@@ -149,6 +149,7 @@ In this script, the secret message is hidden inside the Alpha channel, the fourt
 RGBA mode allows encrypted message to store by replacing the Alpha values of the first few pixels (along the top row). 
 
 **5. Extracting the Message from secret.png**
+
 I understood how the secret message was hidden, so now all I need to do is to figure how I'm going to reverse enginneer the logic and decrypt it.
 
 Since the script encoded each character by:
