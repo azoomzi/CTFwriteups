@@ -169,6 +169,7 @@ Which is:
 (1.)  Revesing the final result to get the original message.
 
 I will use this logic to create a python code that will decrypt the message from secret.png
+
 I will use original code, "secretdoor.py" as a base code
 
 ```
