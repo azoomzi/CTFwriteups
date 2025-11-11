@@ -148,7 +148,7 @@ RGBA mode is a color model that expands on the traditional RGB (Red, Green, Blue
 In this script, the secret message is hidden inside the Alpha channel, the fourth value. Since Alpha affects transparency (and not color), changes to it are often invisible to the human eye unless you specifically look for them.
 RGBA mode allows encrypted message to store by replacing the Alpha values of the first few pixels (along the top row). 
 
-**5. Extracting the Message from secret.png**
+**5. Creating a decoder for secret.png**
 
 
 I understood how the secret message was hidden, so now all I need to do is to figure how I'm going to reverse enginneer the logic and decrypt it.
@@ -182,16 +182,38 @@ def prob(d_img, key_len=10, max_len=100):
     msg = []
 
     for i in range(max_len):
-        enc = p[c, 0][3]  # Get alpha value
-        ch = chr(enc ^ key_len)  # Decrypt using XOR
+        enc = p[c, 0][3]  # Read the alpha channel
+        ch = chr(enc ^ key_len)  # Decrypt it using XOR
         if not ch.isprintable():
             break
         msg.append(ch)
         c += 1
 
-    print("Hidden Message:", ''.join(msg[::-1]))
+    print("Hidden Message:", ''.join(msg[::-1]))  # Reverse back to original
 
 prob("secret.png")
+
+```
+
+
+**6. Extracting the secret message**
+
+Save above code as secret_decoder.py and save in the same folder as secret.png
+
+<img width="636" height="223" alt="image" src="https://github.com/user-attachments/assets/f839edd7-79d2-4c55-b631-d29c09a87ca2" />
+
+
+Then run he script inside the command prompt.
+
+```
+python secret_decoder.py
+```
+
+For me, I had to download PIL to run this code so might as well document it here.
+
+
+``` cmd
+pip install pillow
 ```
 
 
