@@ -132,7 +132,11 @@ and map(encrypt_char,   ) applies the encryption to EACH character in that rever
 
 
 
+##4. Decoding the hidden message from secret.png
 
+After understanding how the message was hidden, the next step is to figure out how to extract it.
+
+Since the original script stored the message inside the alpha channel (transparency) of the image, all we need to do is read those alpha values and reverse the encryption process.
 
 
 
