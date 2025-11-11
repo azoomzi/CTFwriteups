@@ -19,6 +19,15 @@ Image Steganography with XOR encryption
 I decided to look through what kind of code the python file contains
 
 
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
 
 **2. Understanding general concept of "secretbox.py"**
@@ -82,8 +91,15 @@ python secretbox.py original.png "random" secret.png
 Then user will generate a "secret.png" with a sercret message embedded in it.
 
 
-
-
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
 
 **3. Logic of hiding secret message inside the image**
@@ -139,10 +155,15 @@ So "random" becomes "modnar".
 and map(encrypt_char,   ) applies the encryption to EACH character in that reversed message.
 
 
-
-
-
-
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
 
 **4. RGBA mode**
@@ -162,7 +183,15 @@ In this script, the secret message is hidden inside the Alpha channel, the fourt
 RGBA mode allows encrypted message to store by replacing the Alpha values of the first few pixels (along the top row). 
 
 
-
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
 
 
@@ -214,8 +243,15 @@ prob("secret.png")
 ```
 
 
-
-
+.
+.
+.
+.
+.
+.
+.
+.
+.
 
 
 
