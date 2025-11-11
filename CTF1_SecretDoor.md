@@ -110,15 +110,16 @@ def encrypt_char(x):
 "len" will get (d_img) which is the LENGTH of the output image FILE NAME. For example, d_img = secret.png = len ("secret.png") = 10 characters long
 "^" this is a bitwsie XOR operation which is a way to mix two numbers together.
 so for example,
+
 ord('r') = 114
 len("secret.png") = 10
-
+```
   	114 = 01110010
 xor  10 = 00001010
 ------------------
       	= 01111000
 	  	= 120
-
+```	
 114 ^ 10 = 120 (this number becomes the "encrypted" value
 
 ```
