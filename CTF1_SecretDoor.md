@@ -161,7 +161,9 @@ We will do the exact opposite of how it encrypted.
 Which is:
 
 (3.)  Figureing out the each pixel value of Alpha channel 
+
 (2.)  XORing each Alpha value with 10 (the length of the output filename) to get back the original character
+
 (1.)  Revesing the final result to get the original message.
 
 
