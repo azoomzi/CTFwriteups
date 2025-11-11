@@ -203,12 +203,6 @@ Save above code as secret_decoder.py and save in the same folder as secret.png
 <img width="636" height="223" alt="image" src="https://github.com/user-attachments/assets/f839edd7-79d2-4c55-b631-d29c09a87ca2" />
 
 
-Then run he script inside the command prompt.
-
-```
-python secret_decoder.py
-```
-
 For me, I had to download PIL to run this code so might as well document it here.
 
 
@@ -216,6 +210,16 @@ For me, I had to download PIL to run this code so might as well document it here
 pip install pillow
 ```
 
+Then run he script inside the command prompt.
 
+```
+python secret_decoder.py
+```
 
+<img width="1068" height="186" alt="image" src="https://github.com/user-attachments/assets/e22f9357-375a-488d-b1fb-1f12fb599922" />
 
+FINALLY
+I decrypted the secret message:
+1t_is_very_light_b0x
+
+Thanks for reading!
