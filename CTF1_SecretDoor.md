@@ -41,4 +41,20 @@ if len(sys.argv) != 4:
 prob(sys.argv[1], sys.argv[2], sys.argv[3])
 ```
 
+From what I see in this code, I thought that this code is what let the user create "sercret.png".
+
+Why?
+
+```
+im = Image.open(s_img).convert("RGBA")
+```
+
+this part takes input image from the user. then saves it with this code
+
+```
+im.save(d_img)
+```
+
+
+
 
