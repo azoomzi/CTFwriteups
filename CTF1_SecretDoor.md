@@ -19,6 +19,8 @@ Image Steganography with XOR encryption
 I decided to look through what kind of code the python file contains
 
 
+
+
 **2. Understanding general concept of "secretbox.py"**
 ```
 import sys
@@ -79,6 +81,11 @@ python secretbox.py original.png "random" secret.png
 
 Then user will generate a "secret.png" with a sercret message embedded in it.
 
+
+
+
+
+
 **3. Logic of hiding secret message inside the image**
 Let's closely look at this part of the code again.
 
@@ -133,6 +140,11 @@ and map(encrypt_char,   ) applies the encryption to EACH character in that rever
 
 
 
+
+
+
+
+
 **4. RGBA mode**
 
 Finally the important part, RGBA mode.
@@ -148,6 +160,11 @@ RGBA mode is a color model that expands on the traditional RGB (Red, Green, Blue
 
 In this script, the secret message is hidden inside the Alpha channel, the fourth value. Since Alpha affects transparency (and not color), changes to it are often invisible to the human eye unless you specifically look for them.
 RGBA mode allows encrypted message to store by replacing the Alpha values of the first few pixels (along the top row). 
+
+
+
+
+
 
 **5. Creating a decoder for secret.png**
 
@@ -195,6 +212,11 @@ def prob(d_img, key_len=10, max_len=100):
 prob("secret.png")
 
 ```
+
+
+
+
+
 
 
 **6. Extracting the secret message**
