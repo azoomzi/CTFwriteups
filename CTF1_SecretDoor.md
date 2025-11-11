@@ -17,8 +17,8 @@ by Azumi Yasukohchi
 
 I decided to look through what kind of code the python file contains
 
-secretbox.py
 
+**2. Understanding "secretbox.py"**
 ```
 import sys
 from PIL import Image
@@ -55,7 +55,7 @@ this part takes input image from the user. then saves it with this code
 im.save(d_img)
 ```
 
-Then, this part made me think that this code will take a "secret message: that the user typed in.
+Then, this part made me think that this code will take a "secret message" that the user typed in.
 
 ```
 msg = map(lambda x: ord(x) ^ len(d_img), msg[::-1])
@@ -77,6 +77,7 @@ python secretbox.py original.png "some RANDOME secret" secret.png
 ```
 
 Then user will generate a "secret.png" with a sercret message embedded in it.
+
 
 
 
