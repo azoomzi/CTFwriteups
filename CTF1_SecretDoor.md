@@ -55,6 +55,29 @@ this part takes input image from the user. then saves it with this code
 im.save(d_img)
 ```
 
+Then, this part made me think that this code will take a "secret message: that the user typed in.
+
+```
+msg = map(lambda x: ord(x) ^ len(d_img), msg[::-1])
+```
+
+
+So therefore this part of code is the format of the command line,
+
+```
+if len(sys.argv) != 4:
+	print "%s \"orignal.png\" \"secret message\" \"secret.png\"" % sys.argv[0]
+	exit()
+```
+
+so if you type in the order of above "\"orignal.png\" \"secret message\" \"secret.png\"", for example,
+
+```cmd
+python secretbox.py original.png "some RANDOME secret" secret.png
+```
+
+Then user will generate a "secret.png" with a sercret message embedded in it.
+
 
 
 
