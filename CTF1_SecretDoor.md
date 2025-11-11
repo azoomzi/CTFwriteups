@@ -4,10 +4,11 @@ by Azumi Yasukohchi
 
 
 ## Overview
+This CTF challenge involved a Python script called `secretbox.py` that hides a secret message inside an image using steganography. By analyzing the code, I discovered that the message was encrypted and stored in the image's alpha channel. I then wrote a custom decoder to extract the hidden message from the image file.
 
 
 ## Category
-
+Image Steganography with XOR encryption
 
 
 ## Approach
