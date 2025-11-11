@@ -168,4 +168,31 @@ Which is:
 
 (1.)  Revesing the final result to get the original message.
 
+I will use this logic to create a python code that will decrypt the message from secret.png
+I will use original code, "secretdoor.py" as a base code
+
+```
+from PIL import Image
+
+def prob(d_img, key_len=10, max_len=100):
+    im = Image.open(d_img).convert("RGBA")
+    p = im.load()
+    c = 0
+    msg = []
+
+    for i in range(max_len):
+        enc = p[c, 0][3]  # Get alpha value
+        ch = chr(enc ^ key_len)  # Decrypt using XOR
+        if not ch.isprintable():
+            break
+        msg.append(ch)
+        c += 1
+
+    print("Hidden Message:", ''.join(msg[::-1]))
+
+prob("secret.png")
+```
+
+
+
 
