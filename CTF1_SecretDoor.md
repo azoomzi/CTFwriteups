@@ -142,6 +142,7 @@ im = Image.open(s_img).convert("RGBA")
 ```
 
 Based on my research (https://en.wikipedia.org/wiki/RGBA_color_model#:~:text=RGBA%20stands%20for%20red%20green,pixel%20is%20a%204D%20vector)
+
 RGBA mode is a color model that expands on the traditional RGB (Red, Green, Blue) model by adding a fourth channel for 'A'= Alpha which controls the color's opacity or transparency.
 
 In this script, the secret message is hidden inside the Alpha channel, the fourth value. Since Alpha affects transparency (and not color), changes to it are often invisible to the human eye unless you specifically look for them.
@@ -151,12 +152,14 @@ RGBA mode allows encrypted message to store by replacing the Alpha values of the
 I understood how the secret message was hidden, so now all I need to do is to figure how I'm going to reverse enginneer the logic and decrypt it.
 
 Since the script encoded each character by:
+
 1. Reversing the original message
 2. XORing each character with the length of the output filename (len("secret.png") = 10)
 3. And hiding the result inside the Alpha channel of each pixel
 
 We will do the exact opposite of how it encrypted.
 Which is:
+
 3. Figureing out the each pixel value of Alpha channel 
 2. XORing each Alpha value with 10 (the length of the output filename) to get back the original character
 1. Revesing the final result to get the original message.
