@@ -18,7 +18,7 @@ by Azumi Yasukohchi
 I decided to look through what kind of code the python file contains
 
 
-**2. Understanding "secretbox.py"**
+**2. Understanding general concept of "secretbox.py"**
 ```
 import sys
 from PIL import Image
@@ -73,10 +73,56 @@ if len(sys.argv) != 4:
 so if you type in the order of above "\"orignal.png\" \"secret message\" \"secret.png\"", for example,
 
 ```cmd
-python secretbox.py original.png "some RANDOME secret" secret.png
+python secretbox.py original.png "random" secret.png
 ```
 
 Then user will generate a "secret.png" with a sercret message embedded in it.
+
+**3. Logic of hiding secret message inside the image**
+Let's closely look at this part of the code again.
+
+```
+msg = map(lambda x: ord(x) ^ len(d_img), msg[::-1])
+```
+
+I have never seen lambda before so I asked AI to teach me what lambda is. It told me that lamba acts as function but smoother and quicker to type the whole logic. So basically:
+
+```
+def encrypt_char(x):
+    return ord(x) ^ len(d_img)
+
+msg = map(encrypt_char, msg[::-1])
+```
+
+So in here, "x" is the one character that we get from the user. For example, if we are using "random", the first letter that the code will take as "x" will be "r".
+
+So below line tells python that we are making a function called encrypt_char and we will take one letter from the message as x
+
+```
+def encrypt_char(x):
+```
+
+```
+    return ord(x) ^ len(d_img)
+```
+
+"ord" will take "x" and will get ASCII number of the character. For example, r = ord('r') = 114.
+"len" will get (d_img) which is the LENGTH of the output image FILE NAME. For example, d_img = secret.png = len ("secret.png") = 10 characters long
+"^" this is a bitwsie XOR operation which is a way to mix two numbers together.
+so for example,
+ord('r') = 114
+len("secret.png") = 10
+114 ^ 10 = 124 (this number becomes the "encrypted" value
+
+```
+msg = map(encrypt_char, msg[::-1])
+```
+
+Then above line will reverse the whole message with msg[::-1]
+
+
+
+
 
 
 
