@@ -53,6 +53,10 @@ I also ran strings on the kernel module to see what human-readable data would be
 
 
 We can see that the .ko file is a rootkit that can escalate privileges from "commit_creds, prepare_creds, register_kprobe"
+
+There was also suspicious message that I could assume that this could be where the flag would be.
+<img width="262" height="180" alt="image" src="https://github.com/user-attachments/assets/c94bf185-8011-4a65-b2af-642d8951a5a9" />
+
 ............................................................................................................................
 .
 .
@@ -129,13 +133,12 @@ I was finally able to see it being loaded
 
 
 <img width="449" height="52" alt="image" src="https://github.com/user-attachments/assets/8cb2a1d2-fc7c-4717-8a53-c87674ec7a83" />
+
 Now I did this to see the PID
 
 <img width="537" height="64" alt="image" src="https://github.com/user-attachments/assets/c3caea22-3746-4d2a-aeb1-726576275258" />
 
 Then I triggered the rootkit by kill -64 with the PID i found.
-<img width="537" height="64" alt="image" src="https://github.com/user-attachments/assets/dec4dbf2-836f-431b-9d1a-f38398638ddd" />
-
 
 
 
