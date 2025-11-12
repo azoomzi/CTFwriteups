@@ -13,7 +13,7 @@ Reversing
 ## Approach
 
 **1. Unzipping and looking through the CyberPsychosi.zip**
-Since the file inside the zip file was .ko which is for kernel module, I am going to use Kali Linux for this CTF.
+Since the file inside the zip file was .ko which is for kernel module, I am going to use Kali Linux for this CTF.(Turned out later that I specifically needed VM running 5.15 (like Ubuntu 22.04.5)
 
 <img width="629" height="252" alt="image" src="https://github.com/user-attachments/assets/3eeb04a7-67c0-49b1-99da-513b02af2bbb" />
 
@@ -100,8 +100,23 @@ https://dirtycow.ninja/
 Now that we know init_module() installs the hook, and hacked_kill() listens for signal 63 to trigger give_root(), we can exploit the rootkit manually to get root access. 
 
 
+HOWEVER, problem occured.
+<img width="681" height="95" alt="image" src="https://github.com/user-attachments/assets/22bca2bd-c284-46df-8718-458413d4e807" />
+My kali vm im using does not support the kernel module diamorphine.ko...
+So I downloaded Ubuntu 22.04.5 specifically.
+Now I try again.
 
+<img width="900" height="110" alt="image" src="https://github.com/user-attachments/assets/854f7fe7-7897-4f6a-bbb3-323a5c7cef96" />
 
+Stlll was unable to initiate the module so had to install build essentials and headers.
+Then cloned from github directory to my directory
+
+<img width="741" height="213" alt="image" src="https://github.com/user-attachments/assets/6ada491a-8685-40ec-8474-38f9a4095330" />
+
+<img width="902" height="313" alt="image" src="https://github.com/user-attachments/assets/58ee80b3-8edd-4d68-ac86-438e0104c791" />
+
+Then I recompiled and created new diamorphine.ko that matched my kernel version.
+<img width="902" height="313" alt="image" src="https://github.com/user-attachments/assets/007dbbf7-6962-417b-ba49-0758b228f1c2" />
 
 
 
