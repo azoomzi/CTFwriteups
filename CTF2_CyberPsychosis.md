@@ -116,8 +116,11 @@ Then cloned from github directory to my directory
 <img width="902" height="313" alt="image" src="https://github.com/user-attachments/assets/58ee80b3-8edd-4d68-ac86-438e0104c791" />
 
 Then I recompiled and created new diamorphine.ko that matched my kernel version.
-<img width="902" height="313" alt="image" src="https://github.com/user-attachments/assets/007dbbf7-6962-417b-ba49-0758b228f1c2" />
+I was finally able to initiate the module.
 
+<img width="881" height="114" alt="image" src="https://github.com/user-attachments/assets/9255406e-25f6-4e61-bb01-07056216b6ed" />
+
+Diamorphiine is stealthy so regular listing did not work 
 
 
 
