@@ -136,7 +136,9 @@ https://dirtycow.ninja/
 Now that we know init_module() installs the hook, and hacked_kill() listens for signal 63 to trigger give_root(), we can exploit the rootkit manually to get root access. 
 
 =================================================================================================================================
+
 HOWEVER, problem occured. SKIP THIS PART IF YOU PROPERLY DOWNLOADED UBUNTU.
+
 <img width="681" height="95" alt="image" src="https://github.com/user-attachments/assets/22bca2bd-c284-46df-8718-458413d4e807" />
 My kali vm im using does not support the kernel module diamorphine.ko...
 So I downloaded Ubuntu 22.04.5 specifically.
@@ -144,6 +146,8 @@ Now I try again.
 
 <img width="900" height="110" alt="image" src="https://github.com/user-attachments/assets/854f7fe7-7897-4f6a-bbb3-323a5c7cef96" />
 
+
+I had to change to 5.15.0-91 generic inside my ubuntu to actually run it.
 ======================================================================================================================
 
 I was finally able to initiate the module.
