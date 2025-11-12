@@ -14,7 +14,14 @@ Reversing
 
 **1. Unzipping and looking through the CyberPsychosi.zip**
 
+<img width="684" height="179" alt="image" src="https://github.com/user-attachments/assets/10a1da67-a67d-4802-ac9d-a3b3ac5e8439" />
+
 <img width="326" height="165" alt="image" src="https://github.com/user-attachments/assets/953a10f8-83fc-45d1-ae75-5ff8c28b48f2" />
+
+Unzipped:
+
+<img width="548" height="513" alt="image" src="https://github.com/user-attachments/assets/048a1a7e-64f0-4acf-b33e-26c9159e4c8a" />
+
 
 
 
