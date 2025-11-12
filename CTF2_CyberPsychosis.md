@@ -23,7 +23,7 @@ After that, I clicked on "starting point", then selected "openvpn".
 
 
 I downloaded the openvpn file. 
-Then I started the openvpn
+Then I started the openvpn. Kept the openvpn running.
 
 <img width="536" height="215" alt="image" src="https://github.com/user-attachments/assets/77f56b89-605f-412f-8d2d-8ad996e11db5" />
 
@@ -32,9 +32,7 @@ I made sure that my Kali VM is connected to HackTheBox by pinging the ip address
 
 <img width="219" height="88" alt="image" src="https://github.com/user-attachments/assets/3729d7d1-f789-4599-af4e-f2cfa143e5c8" />
 
-
-<img width="822" height="151" alt="image" src="https://github.com/user-attachments/assets/775e90a6-532c-4a96-995b-63fae04dee6b" />
-
+<img width="622" height="259" alt="image" src="https://github.com/user-attachments/assets/551c071b-94d2-4836-a03f-1424dcc4d95e" />
 
 
 ............................................................................................................................
