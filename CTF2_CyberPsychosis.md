@@ -1,4 +1,4 @@
-# CTF 1: SecretDoor Wrtieup
+# CyberPsychosis Writeups
 by Azumi Yasukohchi
 
 
