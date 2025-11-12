@@ -158,7 +158,8 @@ We will escalte to root priviledge by using what I learned in step 3.
 
 - "kill" the process and gain root priviledge
 
-<img width="243" height="98" alt="image" src="https://github.com/user-attachments/assets/3e951f49-7d69-4dc3-8ef1-7b782d5f5e5e" />
+<img width="542" height="188" alt="image" src="https://github.com/user-attachments/assets/a217a36d-4983-44d2-912d-59de202b5953" />
+
 
 <img width="541" height="144" alt="image" src="https://github.com/user-attachments/assets/4364ce67-fd5c-46ea-888d-447e641f638c" />
 
