@@ -2,9 +2,11 @@
 by Azumi Yasukohchi
 
 
+https://app.hackthebox.com/challenges/Cyberpsychosis 
 
 ## Overview
-https://app.hackthebox.com/challenges/Cyberpsychosis 
+
+This CTF challenge involved a malicious Linux kernel module named diamorphine.ko, which acted as a stealth rootkit. By analyzing the module and monitoring its behavior after insertion into the kernel, I discovered that it secretly created a hidden directory containing the challenge flag. I then navigated to /opt/psychosis/ and retrieved the flag, confirming successful rootkit analysis and privilege escalation.
 
 ## Category
 Reversing
