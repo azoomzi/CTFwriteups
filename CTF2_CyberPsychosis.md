@@ -13,7 +13,7 @@ Reversing
 ## Approach
 
 
-**1. Setting up the HackTheBox environment **
+** 1. Setting up the HackTheBox environment **
 
 Since the file inside the zip file was .ko which is for kernel module, I am going to use Kali Linux for this CTF
 
