@@ -176,8 +176,7 @@ I was finally able to initiate the module.
 
 Diamorphiine is stealthy so regular listing did not work. Had to do dmesg.
 
-<img width="750" height="92" alt="image" src="https://github.com/user-attachments/assets/9e01de4f-ffea-4c33-8f30-29f0d1d765f5" />
-
+<img width="899" height="121" alt="image" src="https://github.com/user-attachments/assets/db3ba20d-8b73-42bc-8e9e-97d758b6efd1" />
 
 I was finally able to see it being loaded
 
