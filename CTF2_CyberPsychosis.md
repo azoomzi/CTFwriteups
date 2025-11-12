@@ -12,8 +12,43 @@ Reversing
 
 ## Approach
 
-**1. Unzipping and looking through the CyberPsychosi.zip**
-Since the file inside the zip file was .ko which is for kernel module, I am going to use Kali Linux for this CTF.(Turned out later that I specifically needed VM running 5.15 (like Ubuntu 22.04.5)
+
+**1. Setting up the HackTheBox environment **
+
+Since the file inside the zip file was .ko which is for kernel module, I am going to use Kali Linux for this CTF.(Turned out later that I specifically needed VM running 5.15 (like Ubuntu 22.04.5). So some of the screenshot will be shown from kali vm.
+
+Inside that VM, go to https://app.hackthebox.com/challenges/Cyberpsychosis then START the instance. Then click on "Connect to HTB".
+After that, I clicked on "starting point", then selected "openvpn".
+
+
+I downloaded the openvpn file. I moved it to same directory as my CTF 2 folder.
+Then I started the openvpn
+
+<img width="888" height="245" alt="image" src="https://github.com/user-attachments/assets/5e255d4d-972d-4252-817a-abb21b6d5638" />
+
+
+I made sure that my Ubuntu VM is connected to HackTheBox by pinging the ip address that was provided.
+
+<img width="219" height="88" alt="image" src="https://github.com/user-attachments/assets/3729d7d1-f789-4599-af4e-f2cfa143e5c8" />
+
+
+<img width="822" height="151" alt="image" src="https://github.com/user-attachments/assets/775e90a6-532c-4a96-995b-63fae04dee6b" />
+
+
+
+............................................................................................................................
+.
+.
+............................................................................................................................
+.
+.
+.............................................................................................................................
+.
+.
+............................................................................................................................
+
+
+**2. Unzipping and looking through the CyberPsychosi.zip**
 
 <img width="629" height="252" alt="image" src="https://github.com/user-attachments/assets/3eeb04a7-67c0-49b1-99da-513b02af2bbb" />
 
@@ -54,9 +89,6 @@ I also ran strings on the kernel module to see what human-readable data would be
 
 We can see that the .ko file is a rootkit that can escalate privileges from "commit_creds, prepare_creds, register_kprobe"
 
-There was also suspicious message that I could assume that this could be where the flag would be.
-<img width="262" height="180" alt="image" src="https://github.com/user-attachments/assets/c94bf185-8011-4a65-b2af-642d8951a5a9" />
-
 ............................................................................................................................
 .
 .
@@ -72,7 +104,7 @@ There was also suspicious message that I could assume that this could be where t
 
 **3. Looking through functions inside the "diamorphie.ko"**
 
-In Step 2, I discovered that the file was a non-stripped ELF file. So I will list allthe functions inside.
+In Step 2, I discovered that the file was a non-stripped ELF file. So I will list all the functions inside.
 
 <img width="718" height="275" alt="image" src="https://github.com/user-attachments/assets/d6765b40-0008-44b8-9707-e59e7cf230ec" />
 
@@ -103,7 +135,7 @@ https://dirtycow.ninja/
 
 Now that we know init_module() installs the hook, and hacked_kill() listens for signal 63 to trigger give_root(), we can exploit the rootkit manually to get root access. 
 
-
+=================================================================================================================================
 HOWEVER, problem occured.
 <img width="681" height="95" alt="image" src="https://github.com/user-attachments/assets/22bca2bd-c284-46df-8718-458413d4e807" />
 My kali vm im using does not support the kernel module diamorphine.ko...
@@ -140,5 +172,5 @@ Now I did this to see the PID
 
 Then I triggered the rootkit by kill -64 with the PID i found.
 
-
+======================================================================================================================
 
