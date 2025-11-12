@@ -133,9 +133,47 @@ https://dirtycow.ninja/
 **4. Triggering the privilege escalation**
 
 
-Now that we know init_module() installs the hook, and hacked_kill() listens for signal 63 to trigger give_root(), we can exploit the rootkit manually to get root access. 
+Now that we know init_module() installs the hook, and hacked_kill() listens for signal 64 to trigger give_root(), we can exploit the rootkit manually to get root access. 
 
-=================================================================================================================================
+We will ncat to the HackTheBox IP address.
+
+```
+nc <target-ip> <port>
+```
+
+<img width="911" height="128" alt="image" src="https://github.com/user-attachments/assets/bc727667-86da-4fee-b8fe-302c7dbe2cea" />
+
+Now I am connected to the HackTheBox Target machine.
+
+We will escalte to root priviledge by using what I learned in step 3.
+
+- "kill" the process
+  
+<img width="243" height="98" alt="image" src="https://github.com/user-attachments/assets/3e951f49-7d69-4dc3-8ef1-7b782d5f5e5e" />
+
+- 
+
+
+
+I tried to locate where the diamorphine.ko file is inside the target machine since we need to initate the module there.
+
+```
+find / -type f -name "diamorphine.ko" 2>/dev/null
+```
+
+<img width="482" height="88" alt="image" src="https://github.com/user-attachments/assets/5ccee706-6048-4d1d-a3dd-f4de31df3cad" />
+
+Now we know that it is located in: /opt/psychosis/diamorphine.ko
+
+We will go to that directory and see if there would be any hints or text file I can read.
+
+<img width="728" height="302" alt="image" src="https://github.com/user-attachments/assets/6fa7fb09-48e4-46ec-90b9-cc656c37e071" />
+
+<img width="690" height="86" alt="image" src="https://github.com/user-attachments/assets/29d4b12b-059a-465e-aa81-183ad80a43c4" />
+
+Thanks for reading!
+
+============================================================================================================================
 
 HOWEVER, problem occured. SKIP THIS PART IF YOU PROPERLY DOWNLOADED UBUNTU.
 
