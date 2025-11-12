@@ -22,10 +22,10 @@ Inside that VM, go to https://app.hackthebox.com/challenges/Cyberpsychosis then 
 After that, I clicked on "starting point", then selected "openvpn".
 
 
-I downloaded the openvpn file. I moved it to same directory as my CTF 2 folder.
+I downloaded the openvpn file. 
 Then I started the openvpn
 
-<img width="888" height="245" alt="image" src="https://github.com/user-attachments/assets/5e255d4d-972d-4252-817a-abb21b6d5638" />
+<img width="536" height="215" alt="image" src="https://github.com/user-attachments/assets/77f56b89-605f-412f-8d2d-8ad996e11db5" />
 
 
 I made sure that my Kali VM is connected to HackTheBox by pinging the ip address that was provided.
