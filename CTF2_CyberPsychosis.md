@@ -13,10 +13,10 @@ Reversing
 ## Approach
 
 **1. Unzipping and looking through the CyberPsychosi.zip**
+Since the file inside the zip file was .ko which is for kernel module, I am going to use Kali Linux for this CTF.
 
-<img width="684" height="179" alt="image" src="https://github.com/user-attachments/assets/10a1da67-a67d-4802-ac9d-a3b3ac5e8439" />
+<img width="629" height="252" alt="image" src="https://github.com/user-attachments/assets/3eeb04a7-67c0-49b1-99da-513b02af2bbb" />
 
-<img width="326" height="165" alt="image" src="https://github.com/user-attachments/assets/953a10f8-83fc-45d1-ae75-5ff8c28b48f2" />
 
 Unzipped:
 
