@@ -147,7 +147,7 @@ Now I am connected to the HackTheBox Target machine.
 
 We will escalte to root priviledge by using what I learned in step 3.
 
-- "kill" the process
+- "kill" the process and gain root priviledge 
   
 <img width="243" height="98" alt="image" src="https://github.com/user-attachments/assets/3e951f49-7d69-4dc3-8ef1-7b782d5f5e5e" />
 
