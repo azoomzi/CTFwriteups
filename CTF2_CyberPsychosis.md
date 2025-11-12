@@ -13,8 +13,7 @@ Reversing
 ## Approach
 
 
-**1. Setting up the HackTheBox environment
-**
+**1. Setting up the HackTheBox environment**
 
 
 Since the file inside the zip file was .ko which is for kernel module, I am going to use Kali Linux for this CTF
@@ -75,7 +74,7 @@ Unzipped:
 
 
 
-**2. Understanding general concept of "diamorphie.ko"**
+**3. Understanding general concept of "diamorphie.ko"**
 
 I wanted see what kind of file actually this is.
 <img width="1010" height="115" alt="image" src="https://github.com/user-attachments/assets/33c0a7cf-c07a-46fb-899e-4cd6073dba4e" />
@@ -104,7 +103,7 @@ We can see that the .ko file is a rootkit that can escalate privileges from "com
 
 
 
-**3. Looking through functions inside the "diamorphie.ko"**
+**4. Looking through functions inside the "diamorphie.ko"**
 
 In Step 2, I discovered that the file was a non-stripped ELF file. So I will list all the functions inside.
 
@@ -132,7 +131,7 @@ https://dirtycow.ninja/
 ............................................................................................................................
 
 
-**4. Triggering the privilege escalation**
+**5. Triggering the privilege escalation**
 
 
 Now that we know init_module() installs the hook, and hacked_kill() listens for signal 64 to trigger give_root(), we can exploit the rootkit manually to get root access. 
@@ -170,7 +169,7 @@ Seems that I will need to make the rootkit visible and remove the diamorphine in
 <img width="599" height="323" alt="image" src="https://github.com/user-attachments/assets/ff67307b-60f7-41f5-97e2-c8f6f3e4427b" />
 
 
-**5. Finding the flag**
+**6. Finding the flag**
 
 
 Now we know that it is located in: /opt/psychosis/diamorphine.ko
