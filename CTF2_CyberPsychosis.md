@@ -74,7 +74,7 @@ In Step 2, I discovered that the file was a non-stripped ELF file. So I will lis
 
 Reasearching important functions
 The function init_module() sets everything up when the module is loaded using insmod. It hooks into the system and installs the malicious logic by replacing normal syscalls with its own functions.
-One of those is hacked_kill, a syscall hook that listens for special signals like kill -63. When the module receives signal 63, it does not actually kill the process. Instead, it calls give_root(), which escalates the current process to root privileges (UID 0).
+One of those is hacked_kill, a syscall hook that listens for special signals like kill -64. When the module receives signal 64, it does not actually kill the process. Instead, it calls give_root(), which escalates the current process to root privileges (UID 0).
 
 
 References
@@ -120,12 +120,21 @@ I was finally able to initiate the module.
 
 <img width="881" height="114" alt="image" src="https://github.com/user-attachments/assets/9255406e-25f6-4e61-bb01-07056216b6ed" />
 
-Diamorphiine is stealthy so regular listing did not work 
+Diamorphiine is stealthy so regular listing did not work. Had to do dmesg.
+
+<img width="750" height="92" alt="image" src="https://github.com/user-attachments/assets/9e01de4f-ffea-4c33-8f30-29f0d1d765f5" />
 
 
+I was finally able to see it being loaded
 
 
+<img width="449" height="52" alt="image" src="https://github.com/user-attachments/assets/8cb2a1d2-fc7c-4717-8a53-c87674ec7a83" />
+Now I did this to see the PID
 
+<img width="537" height="64" alt="image" src="https://github.com/user-attachments/assets/c3caea22-3746-4d2a-aeb1-726576275258" />
+
+Then I triggered the rootkit by kill -64 with the PID i found.
+<img width="537" height="64" alt="image" src="https://github.com/user-attachments/assets/dec4dbf2-836f-431b-9d1a-f38398638ddd" />
 
 
 
