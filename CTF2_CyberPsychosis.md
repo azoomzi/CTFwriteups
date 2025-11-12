@@ -38,69 +38,14 @@ Unzipped:
 
 
 
-**2. Understanding general concept of "secretbox.py"**
-```
-import sys
-from PIL import Image
+**2. Understanding general concept of "diamorphie.ko"**
+I ran strings on the kernel module to see what human-readable data would be inside.
+<img width="733" height="917" alt="image" src="https://github.com/user-attachments/assets/3dba38a4-c0cd-4b45-ab02-701da51b7b0b" />
+<img width="232" height="30" alt="image" src="https://github.com/user-attachments/assets/22074b0f-ee04-4cc7-9c95-c77b070a3590" />
+<img width="139" height="59" alt="image" src="https://github.com/user-attachments/assets/dab1265f-c281-4615-8c05-9fdce7946784" />
 
-def prob(s_img, msg, d_img):
-	im = Image.open(s_img).convert("RGBA")
-	p = im.load()
-	c = 0
-	msg = map(lambda x: ord(x) ^ len(d_img), msg[::-1])
-	for i in range(0, len(msg)):
-		enc = msg[i]
-		p[c, 0] = (p[c, 0][0], p[c, 0][1], p[c, 0][2], enc)
-		c += 1
-	im.save(d_img)
-
-if len(sys.argv) != 4:
-	print "%s \"orignal.png\" \"secret message\" \"secret.png\"" % sys.argv[0]
-	exit()
-
-prob(sys.argv[1], sys.argv[2], sys.argv[3])
-```
-
-From what I see in this code, I thought that this code is what let the user create "sercret.png".
-
-Why?
-
-```
-im = Image.open(s_img).convert("RGBA")
-```
-
-this part takes input image from the user. then saves it with this code
-
-```
-im.save(d_img)
-```
-
-Then, this part made me think that this code will take a "secret message" that the user typed in.
-
-```
-msg = map(lambda x: ord(x) ^ len(d_img), msg[::-1])
-```
-
-
-So therefore this part of code is the format of the command line,
-
-```
-if len(sys.argv) != 4:
-	print "%s \"orignal.png\" \"secret message\" \"secret.png\"" % sys.argv[0]
-	exit()
-```
-
-so if you type in the order of above "\"orignal.png\" \"secret message\" \"secret.png\"", for example,
-
-```cmd
-python secretbox.py original.png "random" secret.png
-```
-
-Then user will generate a "secret.png" with a sercret message embedded in it.
-
-
-
-
+We can see that the .ko file is a rootkit that 
+<img width="139" height="59" alt="image" src="https://github.com/user-attachments/assets/cc965e18-fb35-4de9-bdb1-7a8db8b33bfa" />
 ............................................................................................................................
 .
 .
