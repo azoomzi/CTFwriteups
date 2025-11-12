@@ -1,23 +1,20 @@
-# CyberPsychosis Writeups
+# CyberPsychosis Writeup
 by Azumi Yasukohchi
 
 
 
 ## Overview
-This CTF challenge involved a Python script called `secretbox.py` that hides a secret message inside an image using steganography. By analyzing the code, I discovered that the message was encrypted and stored in the image's alpha channel. I then wrote a custom decoder to extract the hidden message from the image file.
-
+https://app.hackthebox.com/challenges/Cyberpsychosis 
 
 ## Category
-Image Steganography with XOR encryption
+Reversing
 
 
 ## Approach
 
-**1. Unzipping and looking through the secretdoor.zip**
-<img width="709" height="233" alt="image" src="https://github.com/user-attachments/assets/1a9f6948-b39a-4763-9f33-f17ea63f5075" />
+**1. Unzipping and looking through the CyberPsychosi.zip**
 
-I decided to look through what kind of code the python file contains
-
+<img width="326" height="165" alt="image" src="https://github.com/user-attachments/assets/953a10f8-83fc-45d1-ae75-5ff8c28b48f2" />
 
 
 
