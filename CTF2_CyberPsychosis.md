@@ -72,10 +72,15 @@ In Step 2, I discovered that the file was a non-stripped ELF file. So I will lis
 
 <img width="718" height="275" alt="image" src="https://github.com/user-attachments/assets/d6765b40-0008-44b8-9707-e59e7cf230ec" />
 
-Reasearching what these does:
-|Function Name| What it does based on my research| 
-|-------------|----------------------------------|
-|hacked_getdents|It is used to hide files (When rootkits want to hide files or directories, they hook getdents functions and filter out entries.|
+Reasearching important functions
+The function init_module() sets everything up when the module is loaded using insmod. It hooks into the system and installs the malicious logic by replacing normal syscalls with its own functions.
+One of those is hacked_kill, a syscall hook that listens for special signals like kill -63. When the module receives signal 63, it does not actually kill the process. Instead, it calls give_root(), which escalates the current process to root privileges (UID 0).
+
+
+References
+https://linux.die.net/man/2/init_module
+https://github.com/m0nad/Diamorphine#features
+https://dirtycow.ninja/ 
 
 ............................................................................................................................
 .
@@ -89,130 +94,21 @@ Reasearching what these does:
 ............................................................................................................................
 
 
+**4. Triggering the privilege escalation**
 
 
-**4. RGBA mode**
-
-Finally the important part, RGBA mode.
-In the code, the image is converted to RGBA mode.
-
-```
-im = Image.open(s_img).convert("RGBA")
-```
-
-Based on my research (https://en.wikipedia.org/wiki/RGBA_color_model#:~:text=RGBA%20stands%20for%20red%20green,pixel%20is%20a%204D%20vector)
-
-RGBA mode is a color model that expands on the traditional RGB (Red, Green, Blue) model by adding a fourth channel for 'A'= Alpha which controls the color's opacity or transparency.
-
-In this script, the secret message is hidden inside the Alpha channel, the fourth value. Since Alpha affects transparency (and not color), changes to it are often invisible to the human eye unless you specifically look for them.
-RGBA mode allows encrypted message to store by replacing the Alpha values of the first few pixels (along the top row). 
-
-
-
-
-............................................................................................................................
-.
-.
-............................................................................................................................
-.
-.
-.............................................................................................................................
-.
-.
-............................................................................................................................
+Now that we know init_module() installs the hook, and hacked_kill() listens for signal 63 to trigger give_root(), we can exploit the rootkit manually to get root access. 
 
 
 
 
 
-**5. Creating a decoder for secret.png**
-
-
-I understood how the secret message was hidden, so now all I need to do is to figure how I'm going to reverse enginneer the logic and decrypt it.
-
-Since the script encoded each character by:
-
-1. Reversing the original message
-2. XORing each character with the length of the output filename (len("secret.png") = 10)
-3. And hiding the result inside the Alpha channel of each pixel
-
-We will do the exact opposite of how it encrypted.
-Which is:
-
-(3.)  Figureing out the each pixel value of Alpha channel 
-
-(2.)  XORing each Alpha value with 10 (the length of the output filename) to get back the original character
-
-(1.)  Revesing the final result to get the original message.
-
-I will use this logic to create a python code that will decrypt the message from secret.png
-
-I will use original code, "secretdoor.py" as a base code
-
-```
-from PIL import Image
-
-def prob(d_img, key_len=10, max_len=100):
-    im = Image.open(d_img).convert("RGBA")
-    p = im.load()
-    c = 0
-    msg = []
-
-    for i in range(max_len):
-        enc = p[c, 0][3]  # Read the alpha channel
-        ch = chr(enc ^ key_len)  # Decrypt it using XOR
-        if not ch.isprintable():
-            break
-        msg.append(ch)
-        c += 1
-
-    print("Hidden Message:", ''.join(msg[::-1]))  # Reverse back to original
-
-prob("secret.png")
-
-```
-
-
-
-............................................................................................................................
-.
-.
-............................................................................................................................
-.
-.
-.............................................................................................................................
-.
-.
-............................................................................................................................
 
 
 
 
 
-**6. Extracting the secret message**
-
-Save above code as secret_decoder.py and save in the same folder as secret.png
-
-<img width="636" height="223" alt="image" src="https://github.com/user-attachments/assets/f839edd7-79d2-4c55-b631-d29c09a87ca2" />
 
 
-For me, I had to download PIL to run this code so might as well document it here.
 
 
-``` cmd
-pip install pillow
-```
-
-Then run he script inside the command prompt.
-
-```
-python secret_decoder.py
-```
-
-<img width="1068" height="186" alt="image" src="https://github.com/user-attachments/assets/e22f9357-375a-488d-b1fb-1f12fb599922" />
-
-FINALLY
-I decrypted the secret message:
-1t_is_very_light_b0x
-
-Thanks for reading!
