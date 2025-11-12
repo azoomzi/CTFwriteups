@@ -39,13 +39,20 @@ Unzipped:
 
 
 **2. Understanding general concept of "diamorphie.ko"**
-I ran strings on the kernel module to see what human-readable data would be inside.
+
+I wanted see what kind of file actually this is.
+<img width="1010" height="115" alt="image" src="https://github.com/user-attachments/assets/33c0a7cf-c07a-46fb-899e-4cd6073dba4e" />
+
+It showed that it is a ELF file with debug info + not stripped. This will allow me to explore the function names.
+
+I also ran strings on the kernel module to see what human-readable data would be inside.
 <img width="733" height="917" alt="image" src="https://github.com/user-attachments/assets/3dba38a4-c0cd-4b45-ab02-701da51b7b0b" />
 <img width="232" height="30" alt="image" src="https://github.com/user-attachments/assets/22074b0f-ee04-4cc7-9c95-c77b070a3590" />
-<img width="139" height="59" alt="image" src="https://github.com/user-attachments/assets/dab1265f-c281-4615-8c05-9fdce7946784" />
+<img width="127" height="39" alt="image" src="https://github.com/user-attachments/assets/b2de26d3-8f2e-456e-abde-5f7bfbf7a478" />
+<img width="170" height="36" alt="image" src="https://github.com/user-attachments/assets/d88d9252-f1e4-44f6-9f75-ed931de5c9bc" />
 
-We can see that the .ko file is a rootkit that 
-<img width="139" height="59" alt="image" src="https://github.com/user-attachments/assets/cc965e18-fb35-4de9-bdb1-7a8db8b33bfa" />
+
+We can see that the .ko file is a rootkit that can escalate privileges from "commit_creds, prepare_creds, register_kprobe"
 ............................................................................................................................
 .
 .
@@ -59,61 +66,16 @@ We can see that the .ko file is a rootkit that
 
 
 
-**3. Logic of hiding secret message inside the image**
-Let's closely look at this part of the code again.
+**3. Looking through functions inside the "diamorphie.ko"**
 
-```
-msg = map(lambda x: ord(x) ^ len(d_img), msg[::-1])
-```
+In Step 2, I discovered that the file was a non-stripped ELF file. So I will list allthe functions inside.
 
-I have never seen lambda before so I asked AI to teach me what lambda is. It told me that lamba acts as function but smoother and quicker to type the whole logic. So basically:
+<img width="718" height="275" alt="image" src="https://github.com/user-attachments/assets/d6765b40-0008-44b8-9707-e59e7cf230ec" />
 
-```
-def encrypt_char(x):
-    return ord(x) ^ len(d_img)
-
-msg = map(encrypt_char, msg[::-1])
-```
-
-So in here, "x" is the one character that we get from the user. For example, if we are using "random", the first letter that the code will take as "x" will be "r".
-
-So below line tells python that we are making a function called encrypt_char and we will take one letter from the message as x
-
-```
-def encrypt_char(x):
-```
-
-```
-    return ord(x) ^ len(d_img)
-```
-
-"ord" will take "x" and will get ASCII number of the character. For example, r = ord('r') = 114.
-"len" will get (d_img) which is the LENGTH of the output image FILE NAME. For example, d_img = secret.png = len ("secret.png") = 10 characters long
-"^" this is a bitwsie XOR operation which is a way to mix two numbers together.
-so for example,
-
-ord('r') = 114
-len("secret.png") = 10
-```
-  	114 = 01110010
-xor  10 = 00001010
-------------------
-      	= 01111000
-	  	= 120
-```	
-114 ^ 10 = 120 (this number becomes the "encrypted" value
-
-```
-msg = map(encrypt_char, msg[::-1])
-```
-
-Then above line will reverse the whole message with msg[::-1].
-So "random" becomes "modnar".
-and map(encrypt_char,   ) applies the encryption to EACH character in that reversed message.
-
-
-
-
+Reasearching what these does:
+|Function Name| What it does based on my research| 
+|-------------|----------------------------------|
+|hacked_getdents|It is used to hide files (When rootkits want to hide files or directories, they hook getdents functions and filter out entries.|
 
 ............................................................................................................................
 .
