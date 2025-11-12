@@ -193,5 +193,12 @@ Then I triggered the rootkit by kill -64 with the PID i found.
 
 Ran this to reveal the module (they modified it from kill -63 to kill -46). (all of these numbers were based on my research from the creator's feature page: https://github.com/m0nad/Diamorphine#features)
 
+<img width="757" height="86" alt="image" src="https://github.com/user-attachments/assets/837df789-9e60-45af-a961-d3c79f3eff79" />
+
+Then confirmed that the rootkit is gone
+
+**5. Finding the flag**
+
+
 
 
