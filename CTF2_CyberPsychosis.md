@@ -189,4 +189,9 @@ Now I did this to see the PID
 
 Then I triggered the rootkit by kill -64 with the PID i found.
 
+<img width="756" height="64" alt="image" src="https://github.com/user-attachments/assets/f54307d7-4530-4247-866f-ed7e3ad1b462" />
+
+Ran this to reveal the module (they modified it from kill -63 to kill -46). (all of these numbers were based on my research from the creator's feature page: https://github.com/m0nad/Diamorphine#features)
+
+
 
