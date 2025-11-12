@@ -147,10 +147,28 @@ Now I try again.
 <img width="900" height="110" alt="image" src="https://github.com/user-attachments/assets/854f7fe7-7897-4f6a-bbb3-323a5c7cef96" />
 
 
-I had to change to 5.15.0-91 generic inside my ubuntu to actually run it.
+I had to change to 5.15.0-82 generic inside my ubuntu to actually run it.
+
+<img width="902" height="189" alt="image" src="https://github.com/user-attachments/assets/56dab739-9056-4d42-b191-0bdf5e8a1645" />
+
+this has to match
+
+```
+sudo apt install linux-image-5.15.0-82-generic linux-headers-5.15.0-82-generic
+```
+
+Then reboot and go to GNU GRUB screen then select Advanced option for ubuntu 
+<img width="663" height="622" alt="image" src="https://github.com/user-attachments/assets/97a93678-9913-4492-aeef-36853ac8325b" />
+Then select Select Ubuntu, with Linux 5.15.0-82-generic, hit enter.
 
 
 ======================================================================================================================
+
+I ran it again and this time there was no error
+
+<img width="844" height="48" alt="image" src="https://github.com/user-attachments/assets/5f37d179-dab8-4f3d-b0ca-74537423f88b" />
+
+This confirms that I was able to load the module.
 
 I was finally able to initiate the module.
 
