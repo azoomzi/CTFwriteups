@@ -13,7 +13,12 @@ Reversing
 
 ## Approach
 
-**1. Setting up the HackTheBox environment**
+**1. Setting up the picoCTF environment**
+Downloaded the files from the website and put it into my folders.
+
+<img width="443" height="210" alt="image" src="https://github.com/user-attachments/assets/d03cf3a0-9f29-484f-873e-1408cd117e70" />
+
+**3. Understanding general concept of "chall.c"**
 
 
 
@@ -28,68 +33,6 @@ Reversing
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-**1. Setting up the HackTheBox environment**
-
-
-Since the file inside the zip file was .ko which is for kernel module, I am going to use Kali Linux for this CTF
-
-Inside that VM, go to https://app.hackthebox.com/challenges/Cyberpsychosis then START the instance. Then click on "Connect to HTB".
-After that, I clicked on "starting point", then selected "openvpn".
-
-
-I downloaded the openvpn file. 
-Then I started the openvpn. Kept the openvpn running.
-
-<img width="536" height="215" alt="image" src="https://github.com/user-attachments/assets/77f56b89-605f-412f-8d2d-8ad996e11db5" />
-
-
-I made sure that my Kali VM is connected to HackTheBox by pinging the ip address that was provided.
-
-<img width="219" height="88" alt="image" src="https://github.com/user-attachments/assets/3729d7d1-f789-4599-af4e-f2cfa143e5c8" />
-
-<img width="622" height="259" alt="image" src="https://github.com/user-attachments/assets/551c071b-94d2-4836-a03f-1424dcc4d95e" />
-
-
-............................................................................................................................
-.
-.
-............................................................................................................................
-.
-.
-.............................................................................................................................
-.
-.
-............................................................................................................................
-
-
-**2. Unzipping and looking through the CyberPsychosi.zip**
-
-<img width="629" height="252" alt="image" src="https://github.com/user-attachments/assets/3eeb04a7-67c0-49b1-99da-513b02af2bbb" />
-
-
-Unzipped:
-
-<img width="548" height="513" alt="image" src="https://github.com/user-attachments/assets/048a1a7e-64f0-4acf-b33e-26c9159e4c8a" />
 
 
 
