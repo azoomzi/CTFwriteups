@@ -1,4 +1,4 @@
-# Heap0PicoCTF Writeup
+# Heap 0 picoCTF Writeup
 by Azumi Yasukohchi
 
 
