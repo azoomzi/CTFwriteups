@@ -19,6 +19,23 @@ Downloaded the files from the website and put it into my folders.
 <img width="443" height="210" alt="image" src="https://github.com/user-attachments/assets/d03cf3a0-9f29-484f-873e-1408cd117e70" />
 
 
+
+
+
+
+............................................................................................................................
+.
+.
+............................................................................................................................
+.
+.
+.............................................................................................................................
+.
+.
+............................................................................................................................
+
+
+
 **2. Understanding the Heap Layout of "chall.c"**
 
 Before exploiting anything, I wanted to understand where these variables actually live in memory. The challenge says “heap0”, so it will be both variables (input_data and safe_var) living on the heap, not the stack. 
@@ -26,7 +43,7 @@ Before exploiting anything, I wanted to understand where these variables actuall
 I looked throught the file chall.c and here are information that I thought it was helpful to win the flag.
 
 
-1. (safe_var, "bico") != 0) {
+#1. The check that decides if you win
 
 <img width="367" height="58" alt="image" src="https://github.com/user-attachments/assets/481ec4b3-21d5-4a16-8e25-9bff7428b348" />
 
@@ -34,12 +51,20 @@ I looked throught the file chall.c and here are information that I thought it wa
 From this image, **i can see that if safe_var does not eaqual to "bico",** it will print out the flag.txt. So as long as I change any letters on bico, it should print the flag.txt
 
 
-2. Vulenrability of scaf()
+#2. Vulenrability of scaf(%s)
 
 <img width="291" height="103" alt="image" src="https://github.com/user-attachments/assets/7cb091dc-5b1d-44ca-9ee2-3b204b0d0d4c" />
 
 
+In here, I can see that they used %s (format specifier for input/output) which reads untill there is a white space and writes them into a buffer. Hacker probably used scanf so they could use %s which is dangerous because it will allow user to write as many information as they want. 
 
+If we go back to how much letters can input_data accepts, it is only 5 bytes long.
+<img width="407" height="162" alt="image" src="https://github.com/user-attachments/assets/39b77fc0-cffc-4ec4-820f-cb4ce7682894" />
+
+So because %s can accept more than 5 bytes, it can easily be overflow the input_data.
+
+
+#3. The heap allocations being next to each other
 
 
 
