@@ -59,6 +59,7 @@ From this image, **i can see that if safe_var does not eaqual to "bico",** it wi
 In here, I can see that they used %s (format specifier for input/output) which reads untill there is a white space and writes them into a buffer. Hacker probably used scanf so they could use %s which is dangerous because it will allow user to write as many information as they want. 
 
 If we go back to how much letters can input_data accepts, it is only 5 bytes long.
+
 <img width="407" height="162" alt="image" src="https://github.com/user-attachments/assets/39b77fc0-cffc-4ec4-820f-cb4ce7682894" />
 
 So because %s can accept more than 5 bytes, it can easily be overflow the input_data.
