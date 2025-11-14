@@ -66,7 +66,10 @@ So because %s can accept more than 5 bytes, it can easily be overflow the input_
 
 #3. The heap allocations being next to each other
 
+<img width="441" height="79" alt="image" src="https://github.com/user-attachments/assets/8a27cddc-8457-4ac6-af96-f964a3048cd2" />
 
+Because their allocation is next to each other, there is a high possibility of malloc giving input_data and safe_var address being next to each other. This can cause text being spilled out of input_data container and into safe_var.
+Therefore, if you overflow input_data, it will also overflow safe_var.
 
 
 
