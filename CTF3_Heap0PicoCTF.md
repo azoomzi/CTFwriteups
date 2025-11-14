@@ -6,10 +6,11 @@ https://app.hackthebox.com/challenges/Cyberpsychosis
 
 ## Overview
 
+This CTF challenge focused on exploiting a vulnerable heap-based program that stored two variables, input_data and safe_var, in adjacent heap allocations. Because the program used an unsafe scanf("%s") call, I was able to overflow the small input_data buffer and overwrite safe_var. Changing the value of safe_var triggered the win condition, allowing the program to print the flag.
 
 ## Category
-Reversing
 
+Heap Overflow / Reversing / Memory Exploitation
 
 ## Approach
 
