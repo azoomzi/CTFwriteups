@@ -1,8 +1,7 @@
 # Heap 0 picoCTF Writeup
 by Azumi Yasukohchi
 
-
-https://app.hackthebox.com/challenges/Cyberpsychosis 
+https://play.picoctf.org/practice/challenge/438?category=6&difficulty=1&page=1 
 
 ## Overview
 
