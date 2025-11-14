@@ -10,7 +10,7 @@ This CTF challenge focused on exploiting a vulnerable heap-based program that st
 
 ## Category
 
-Heap Overflow / Reversing / Memory Exploitation
+Heap Overflow / Binary Exploitation / 
 
 ## Approach
 
