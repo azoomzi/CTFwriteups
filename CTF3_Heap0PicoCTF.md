@@ -18,10 +18,12 @@ Downloaded the files from the website and put it into my folders.
 
 <img width="443" height="210" alt="image" src="https://github.com/user-attachments/assets/d03cf3a0-9f29-484f-873e-1408cd117e70" />
 
-**3. Understanding general concept of "chall.c"**
 
+**2. Understanding general concept of "chall.c"**
 
+<img width="417" height="192" alt="image" src="https://github.com/user-attachments/assets/fea90ab3-c350-4f44-a93b-f8a7e7c55095" />
 
+From this image, I can see that as long as I change any letters on bico, it will be considered as unsafe and will print the flag.txt
 
 
 
