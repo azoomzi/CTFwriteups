@@ -62,9 +62,32 @@ There is another zipped file inside it so i tried unzipping it with same passwor
 
 
 
-**3. Understanding general concept of "diamorphie.ko"**
+**3. Tackling maze.exe first **
+
+started with maze.exe because executables almost always contain the main logic and tell you how other files like the png/zip are used, while those are usually just data.
 
 
+So let's Run "file" and "strings" on maze.exe to learn what kind of files there are.
+
+<img width="710" height="84" alt="image" src="https://github.com/user-attachments/assets/3e4042d4-032a-4a3d-b143-7ce9432ce388" />
+
+
+<img width="359" height="52" alt="image" src="https://github.com/user-attachments/assets/2b15439d-3469-4cef-b862-37619ebe6bd8" />
+
+
+<img width="628" height="854" alt="image" src="https://github.com/user-attachments/assets/1b4ea9be-bae7-4d05-b1c2-189d0abe4b82" />
+
+This made me think that the "maze.exe" is a python app in a single exe which leads me to an idea of .exe being related to a packer like Pyinstaller or py2exe.
+
+So I used "grep" for pyinstaller fingerprints.
+
+<img width="706" height="215" alt="image" src="https://github.com/user-attachments/assets/1016348c-b9ef-424e-8db1-f16d5ef1203f" />
+
+
+
+
+
+and our clue to use pyinstxtractor.py to unpack it. After unpacking, running file maze.pyc tells you it’s “python 3.8 byte-compiled,” so you switch to Python 3.8 and use uncompyle6 with that version to decompile and continue
 
 
 ............................................................................................................................
