@@ -84,7 +84,48 @@ So I used "grep" for pyinstaller fingerprints.
 <img width="706" height="215" alt="image" src="https://github.com/user-attachments/assets/1016348c-b9ef-424e-8db1-f16d5ef1203f" />
 
 
-and this confirmed that there is higher possibility of pyinstxtractor being useful to explore further on maze.exe
+and this confirmed that there is higher possibility of extracting pyinstaller being useful to explore further on maze.exe
+
+I googled "pyinstaller extractor" and I found pyinstxtractor.py so I used it on maze.exe
+
+
+<img width="703" height="268" alt="image" src="https://github.com/user-attachments/assets/0afd4d58-50a1-4c21-a6e0-37380b82866f" />
+
+the extractor created maze.exe_extracted so I went in.
+
+
+<img width="825" height="237" alt="image" src="https://github.com/user-attachments/assets/4b5ee220-8f9b-428c-aa25-aef35195f580" />
+
+
+maze.pyc stands out the most compare to other .pyc so let's try deomplile this file.
+
+
+<img width="766" height="79" alt="image" src="https://github.com/user-attachments/assets/f34deefc-f620-4eb9-8feb-e259e53b720e" />
+
+
+Looking inside the decompiled file
+
+<img width="874" height="723" alt="image" src="https://github.com/user-attachments/assets/bd680147-fbf9-41fe-aab7-c8a37af2c9ca" />
+
+these two flag ish letters stands out to me.
+
+Lets try using these as passwords to the locked zipped file.?
+
+- Y0u_St1ll_1N_4_M4z3
+
+<img width="727" height="600" alt="image" src="https://github.com/user-attachments/assets/1253ea71-838a-4647-8b07-8dc8f0681ae3" />
+
+Wrong password
+
+- Y0u_Ar3_W4lkiNG_t0_Y0uR_D34TH
+
+
+<img width="949" height="304" alt="image" src="https://github.com/user-attachments/assets/ff165cc1-6086-4572-8806-57039b180407" />
+
+CORRECT! It gave me a "maze" file with no extenstion on it.
+
+
+
 
 
 
