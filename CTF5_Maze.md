@@ -84,6 +84,9 @@ So I used "grep" for pyinstaller fingerprints.
 <img width="706" height="215" alt="image" src="https://github.com/user-attachments/assets/1016348c-b9ef-424e-8db1-f16d5ef1203f" />
 
 
+and this confirmed that there is higher possibility of pyinstxtractor being useful to explore further on maze.exe
+
+
 
 
 
