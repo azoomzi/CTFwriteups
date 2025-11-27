@@ -10,7 +10,7 @@ https://app.hackthebox.com/challenges/Maze
 
 ## Category
 
-
+Reversing
 
 ## Approach
 
@@ -19,22 +19,9 @@ https://app.hackthebox.com/challenges/Maze
 
  I am going to use Kali Linux for this CTF
 
-Inside that VM, go to https://app.hackthebox.com/challenges/Maze then START the instance. Then click on "Connect to HTB".
-After that, I clicked on "starting point", then selected "openvpn".
+In the description it said that I do not need to have connection to HackTheBox this time. 
 
 
-I downloaded the openvpn file. 
-Then I started the openvpn. Kept the openvpn running.
-
-<img width="966" height="359" alt="image" src="https://github.com/user-attachments/assets/d2d89e7b-2b23-4ade-b19f-5bf9f1d38b2c" />
-
-
-
-I made sure that my Kali VM is connected to HackTheBox by pinging the ip address that was provided.
-
-<img width="153" height="107" alt="image" src="https://github.com/user-attachments/assets/1efe0582-e98c-442a-8faa-da65b7b2c5f4" />
-
-<img width="528" height="161" alt="image" src="https://github.com/user-attachments/assets/5fc4fd65-f491-4e26-95a7-adb6a864e939" />
 
 
 ............................................................................................................................
@@ -77,19 +64,8 @@ There is another zipped file inside it so i tried unzipping it with same passwor
 
 **3. Understanding general concept of "diamorphie.ko"**
 
-I wanted see what kind of file actually this is.
-<img width="1010" height="115" alt="image" src="https://github.com/user-attachments/assets/33c0a7cf-c07a-46fb-899e-4cd6073dba4e" />
-
-It showed that it is a ELF file with debug info + not stripped. This will allow me to explore the function names.
-
-I also ran strings on the kernel module to see what human-readable data would be inside.
-<img width="733" height="917" alt="image" src="https://github.com/user-attachments/assets/3dba38a4-c0cd-4b45-ab02-701da51b7b0b" />
-<img width="232" height="30" alt="image" src="https://github.com/user-attachments/assets/22074b0f-ee04-4cc7-9c95-c77b070a3590" />
-<img width="127" height="39" alt="image" src="https://github.com/user-attachments/assets/b2de26d3-8f2e-456e-abde-5f7bfbf7a478" />
-<img width="170" height="36" alt="image" src="https://github.com/user-attachments/assets/d88d9252-f1e4-44f6-9f75-ed931de5c9bc" />
 
 
-We can see that the .ko file is a rootkit that can escalate privileges from "commit_creds, prepare_creds, register_kprobe"
 
 ............................................................................................................................
 .
