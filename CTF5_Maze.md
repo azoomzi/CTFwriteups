@@ -138,10 +138,6 @@ CORRECT! It gave me a "maze" file with no extenstion on it.
 
 
 
-
-and our clue to use pyinstxtractor.py to unpack it. After unpacking, running file maze.pyc tells you it’s “python 3.8 byte-compiled,” so you switch to Python 3.8 and use uncompyle6 with that version to decompile and continue
-
-
 ............................................................................................................................
 .
 .
@@ -155,21 +151,18 @@ and our clue to use pyinstxtractor.py to unpack it. After unpacking, running fil
 
 
 
-**4. Looking through functions inside the "diamorphie.ko"**
-
-In Step 2, I discovered that the file was a non-stripped ELF file. So I will list all the functions inside.
-
-<img width="718" height="275" alt="image" src="https://github.com/user-attachments/assets/d6765b40-0008-44b8-9707-e59e7cf230ec" />
-
-Reasearching important functions
-The function init_module() sets everything up when the module is loaded using insmod. It hooks into the system and installs the malicious logic by replacing normal syscalls with its own functions.
-One of those is hacked_kill, a syscall hook that listens for special signals like kill -64. When the module receives signal 64, it does not actually kill the process. Instead, it calls give_root(), which escalates the current process to root privileges (UID 0).
+**4. tackling "maze" plane file**
 
 
-References
-https://linux.die.net/man/2/init_module
-https://github.com/m0nad/Diamorphine#features
-https://dirtycow.ninja/ 
+I tried to figure out what kind of file "maze" is.
+
+<img width="351" height="65" alt="image" src="https://github.com/user-attachments/assets/19437cd1-700d-4a05-af46-fe8f2128a849" />
+
+
+But it gave me no clue.
+
+
+
 
 ............................................................................................................................
 .
