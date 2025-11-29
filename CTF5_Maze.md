@@ -199,43 +199,25 @@ The code only calls obf_path.obfuscate_route() if i type the correct string Y0u_
 ............................................................................................................................
 
 
-**5. Triggering the privilege escalation**
+**5. Decompiling obf_path.pyc**
 
 
-Now that we know init_module() installs the hook, and hacked_kill() listens for signal 64 to trigger give_root(), we can exploit the rootkit manually to get root access. 
-
-We will ncat to the HackTheBox IP address.
-
-```
-nc <target-ip> <port>
-```
-
-<img width="529" height="110" alt="image" src="https://github.com/user-attachments/assets/3aa2c1bb-2f02-4e30-b840-1e6539fb23c9" />
-
-Now I am connected to the HackTheBox Target machine.
-
-I tried to locate where the diamorphine.ko file is inside the target machine since we need to initate the module there.
-
-```
-find / -type f -name "diamorphine.ko" 2>/dev/null
-```
-
-<img width="470" height="76" alt="image" src="https://github.com/user-attachments/assets/67f8ac8e-f51b-4a49-bc3e-8475a5686933" />
-
-Without root priviledge we can not use /dev/null.
-
-We will escalte to root priviledge by using what I learned in step 3.
-
-- "kill" the process and gain root priviledge
-
-<img width="542" height="188" alt="image" src="https://github.com/user-attachments/assets/a217a36d-4983-44d2-912d-59de202b5953" />
+<img width="860" height="653" alt="image" src="https://github.com/user-attachments/assets/cd7a4db7-e3ee-4461-a8e9-1acc880aecfc" />
 
 
-<img width="541" height="144" alt="image" src="https://github.com/user-attachments/assets/4364ce67-fd5c-46ea-888d-447e641f638c" />
+I decompiled it by using "uncompyle6". When I looked at the decompiled obf_path.pyc, it didn’t give me a nice readable function. So even after decompiling, the real logic is still hidden inside a big blob that gets marshal.loads() + exec()’d at runtime. That means I would have to reverse raw Python bytecode inside the blob, which is way more painful than I want for this CTF.
 
-Seems that I will need to make the rootkit visible and remove the diamorphine in order for me to actually locate where the file exist.
 
-<img width="599" height="323" alt="image" src="https://github.com/user-attachments/assets/ff67307b-60f7-41f5-97e2-c8f6f3e4427b" />
+
+
+
+
+
+
+
+
+
+
 
 
 ............................................................................................................................
