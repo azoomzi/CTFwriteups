@@ -159,8 +159,31 @@ I tried to figure out what kind of file "maze" is.
 <img width="351" height="65" alt="image" src="https://github.com/user-attachments/assets/19437cd1-700d-4a05-af46-fe8f2128a849" />
 
 
-But it gave me no clue.
+But it gave me NO clue.
 
+I thought that maybe going back to where it came from would help me understand what the maze file was for. the password "Y0u_Ar3_W4lkiNG_t0_Y0uR_D34TH" came from the file "maze.pyc"-->(decompiled)--> "maze_decompiled.py" so lets go back to the decompiled file and see if there are any other clues left inside the code.
+
+
+
+
+<img width="919" height="706" alt="image" src="https://github.com/user-attachments/assets/13becb86-57ca-416c-bf0c-619c86afd6fa" />
+
+
+
+Important things we learned here:
+- ZIP password: Y0u_Ar3_W4lkiNG_t0_Y0uR_D34TH
+- It decrypts a file called **"maze"** and writes **"dec_maze"**.
+
+  
+  <img width="966" height="113" alt="image" src="https://github.com/user-attachments/assets/cea0f779-83d3-4098-9e34-f8d1b7b6872c" />
+
+- The second loop does NOTHING because KEY IS ALL ZERO (key = [0] * len(data)) 
+
+Since x ^ 0 = x, the second step does nothing, which tells us the real key is missing and must come from somewhere else.
+
+when i go back to the top, there is a suspcious module called obf_path (not a standard library) 
+
+The code only calls obf_path.obfuscate_route() if i type the correct string Y0u_St1ll_1N_4_M4z3, so that function is on the “good path” and must be giving me something useful, not a dead end.
 
 
 
