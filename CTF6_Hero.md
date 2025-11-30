@@ -4,6 +4,9 @@ by Azumi Yasukohchi
 https://cybertalents.com/challenges/malware/hero
 
 ## Overview
+Python disassembly that reads flag.txt, maps each char to ord, then encrypts with t=i^11, f=14**t, and s[i]=~(f*o[i]) was given, and the printed list became flag.enc.
+I reversed that exact math: for each encrypted number a at index i, compute t=i^11, f=14**t, then recover the char with chr((~a)//f) to rebuild the flag.
+
 
 
 ## Category
