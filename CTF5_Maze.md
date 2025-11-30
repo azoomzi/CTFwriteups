@@ -1,11 +1,11 @@
-<img width="554" height="252" alt="image" src="https://github.com/user-attachments/assets/c8bff5cf-e0a2-45a4-8187-58c3c61c849e" /># Maze Writeup
+# Maze Writeup
 by Azumi Yasukohchi
 
 
 https://app.hackthebox.com/challenges/Maze 
 
 ## Overview
-
+This CTF challenge focused on unpacking and reversing a multi-stage PyInstaller maze instead of exploiting a memory bug. I unpacked maze.exe to recover its Python code, which revealed the ZIP password for enc_maze.zip and a partially broken decryption routine for a blob called maze. A hidden module (obf_path) provided a RNG seed and randint loop that let me rebuild the real XOR key, fully decrypt maze into an ELF (dec_maze), then use Ghidra to reverse the flag-checking logic and reconstruct the final flag from the stored integer array.
 
 
 ## Category
