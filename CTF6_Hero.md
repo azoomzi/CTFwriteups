@@ -213,9 +213,34 @@ Disassembly of <code object gen2 at 0x7f1e8f5277c0, file "<dis>", line 4>:
 
 
 
+And this code is basically this
 
 
+```
+def gen(i):
+    return i ^ 11
 
+def gen2(i):
+    return 14 ** i
+
+f = open("flag.txt", "r")
+o = []
+r = f.readlines()[0]
+
+for i in range(len(r)):
+    o.append(ord(r[i]))
+
+s = []
+for i in range(len(o)):
+    t = gen(i)              # t = i ^ 11
+    f = gen2(t)             # f = 14 ** t
+    s.append(~(f * o[i]))   # encrypt each character
+
+print(s)
+print(len(s))
+
+
+```
 
 
 
