@@ -409,6 +409,10 @@ print(len(r)
 
 Now we have a decrypt.py let's run and get the flag.
 
+<img width="301" height="112" alt="image" src="https://github.com/user-attachments/assets/bb464237-2d14-4092-a23e-165090e771bf" />
+
+
+Thanks for reading!
 
 
 
