@@ -407,11 +407,8 @@ print(len(r)
 **6. Finding the flag**
 
 
-Now we know that it is located in: /opt/psychosis/diamorphine.ko
+Now we have a decrypt.py let's run and get the flag.
 
-We will go to that directory and see if there would be any hints or text file I can read.
 
-<img width="602" height="192" alt="image" src="https://github.com/user-attachments/assets/370784de-805e-489d-94ea-dbcb00f57ce0" />
 
-I found the flag! Thank you for reading!
 
