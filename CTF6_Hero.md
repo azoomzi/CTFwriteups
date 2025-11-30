@@ -352,6 +352,46 @@ chr(o_i) = chr(70) = F (ASCII)
 
 
 
+
+
+
+
+Combine this logic with original decrypted code from step 3
+
+```
+
+# decrypt.py
+import ast
+
+def gen(i):
+    return i ^ 11
+
+def gen2(i):
+    return 14 ** i
+
+# --- load the encrypted list (this mirrors your 'f = open(...)' style) ---
+with open("flag.enc", "r") as f:                 # reusing name 'f' as file handle
+    s = ast.literal_eval(f.read().strip())       # s = encrypted list from file
+
+# --- rebuild o (ord-values) by reversing the math, keeping names the same ---
+o = []
+for i in range(len(s)):
+    t = gen(i)                                   # t = i ^ 11
+    f = gen2(t)                                  # f = 14 ** t
+    val = ~s[i]                                  # undo the NOT: val = f * ord(char)
+    o.append(val // f)                           # undo the multiply: ord(char)
+
+# --- rebuild r (the original string) ---
+r = "".join(chr(x) for x in o)                   # chars from ords
+print(r)
+print(len(r)
+
+
+```
+
+
+
+
 ......................................................................................................................
 .
 .
