@@ -56,114 +56,157 @@ Unzipped:
 
 **3. Understanding general concept of "Hero.unknown"**
 
-Seeing contents inside the file:
+Seeing contents inside the file(I added comments so it's easier to understand):
 
 ```
-  1           0 LOAD_CONST               0 (<code object gen at 0x7f1e8f527710, file "<dis>", line 1>)   # push code object for function gen
-              2 LOAD_CONST               1 ('gen')                                                       # push the name "gen"
-              4 MAKE_FUNCTION            0                                                               # create a function object gen
-              6 STORE_NAME               0 (gen)                                                         # store it in variable name gen
+# def gen(i):
+#     return i ^ 11
 
-  4           8 LOAD_CONST               2 (<code object gen2 at 0x7f1e8f5277c0, file "<dis>", line 4>)  # push code object for function gen2
-             10 LOAD_CONST               3 ('gen2')                                                      # push the name "gen2"
-             12 MAKE_FUNCTION            0                                                               # create a function object gen2
-             14 STORE_NAME               1 (gen2)                                                        # store it in variable name gen2
+  1           0 LOAD_CONST               0 (<code object gen at 0x7f1e8f527710, file "<dis>", line 1>)
+              2 LOAD_CONST               1 ('gen')
+              4 MAKE_FUNCTION            0
+              6 STORE_NAME               0 (gen)
 
-  7          16 LOAD_NAME                2 (open)                                                        # load built-in function open
-             18 LOAD_CONST               4 ('flag.txt')                                                  # push string "flag.txt"
-             20 LOAD_CONST               5 ('r')                                                         # push string "r" (read mode)
-             22 CALL_FUNCTION            2                                                               # call open('flag.txt', 'r')
-             24 STORE_NAME               3 (f)                                                           # f = open("flag.txt", "r")
 
-  8          26 BUILD_LIST               0                                                               # build empty list []
-             28 STORE_NAME               4 (o)                                                           # o = []
+# def gen2(i):
+#     return 14 ** i
 
-  9          30 LOAD_NAME                3 (f)                                                           # load f
-             32 LOAD_METHOD              5 (readlines)                                                   # load method f.readlines
-             34 CALL_METHOD              0                                                               # call f.readlines()
-             36 LOAD_CONST               6 (0)                                                           # push constant 0
-             38 BINARY_SUBSCR                                                                              # index result[0]
-             40 STORE_NAME               6 (r)                                                           # r = f.readlines()[0]
+  4           8 LOAD_CONST               2 (<code object gen2 at 0x7f1e8f5277c0, file "<dis>", line 4>)
+             10 LOAD_CONST               3 ('gen2')
+             12 MAKE_FUNCTION            0
+             14 STORE_NAME               1 (gen2)
 
- 10          42 LOAD_NAME                7 (range)                                                       # load range
-             44 LOAD_NAME                8 (len)                                                         # load len
-             46 LOAD_NAME                6 (r)                                                           # load r
-             48 CALL_FUNCTION            1                                                               # len(r)
-             50 CALL_FUNCTION            1                                                               # range(len(r))
-             52 GET_ITER                                                                                # get iterator over range(...)
-        >>   54 FOR_ITER                22 (to 78)                                                       # for i in range(len(r)):
-             56 STORE_NAME               9 (i)                                                           #   i = loop index
 
- 12          58 LOAD_NAME                4 (o)                                                           #   load list o
-             60 LOAD_METHOD             10 (append)                                                      #   load o.append
-             62 LOAD_NAME               11 (ord)                                                         #   load ord
-             64 LOAD_NAME                6 (r)                                                           #   load r (flag line)
-             66 LOAD_NAME                9 (i)                                                           #   load i
-             68 BINARY_SUBSCR                                                                            #   r[i]
-             70 CALL_FUNCTION            1                                                               #   ord(r[i])
-             72 CALL_METHOD              1                                                               #   o.append(ord(r[i]))
-             74 POP_TOP                                                                                #   discard return value of append
-             76 JUMP_ABSOLUTE           54                                                               # loop back to FOR_ITER
+# f = open("flag.txt", "r")
 
- 14     >>   78 BUILD_LIST               0                                                               # build empty list []
-             80 STORE_NAME              12 (s)                                                           # s = []
+  7          16 LOAD_NAME                2 (open)
+             18 LOAD_CONST               4 ('flag.txt')
+             20 LOAD_CONST               5 ('r')
+             22 CALL_FUNCTION            2
+             24 STORE_NAME               3 (f)
 
- 15          82 LOAD_NAME                7 (range)                                                       # load range
-             84 LOAD_NAME                8 (len)                                                         # load len
-             86 LOAD_NAME                4 (o)                                                           # load o
-             88 CALL_FUNCTION            1                                                               # len(o)
-             90 CALL_FUNCTION            1                                                               # range(len(o))
-             92 GET_ITER                                                                                # get iterator over range(...)
-        >>   94 FOR_ITER                40 (to 136)                                                      # for i in range(len(o)):
-             96 STORE_NAME               9 (i)                                                           #   i = loop index
 
- 16          98 LOAD_NAME                0 (gen)                                                         #   load function gen
-            100 LOAD_NAME                9 (i)                                                           #   load i
-            102 CALL_FUNCTION            1                                                               #   gen(i)
-            104 STORE_NAME              13 (t)                                                           #   t = gen(i)
+# o = []
 
- 17         106 LOAD_NAME                1 (gen2)                                                        #   load function gen2
-            108 LOAD_NAME               13 (t)                                                           #   load t
-            110 CALL_FUNCTION            1                                                               #   gen2(t)
-            112 STORE_NAME               3 (f)                                                           #   f = gen2(t)
+  8          26 BUILD_LIST               0
+             28 STORE_NAME               4 (o)
 
- 18         114 LOAD_NAME               12 (s)                                                           #   load list s
-            116 LOAD_METHOD             10 (append)                                                      #   load s.append
-            118 LOAD_NAME                3 (f)                                                           #   load f
-            120 LOAD_NAME                4 (o)                                                           #   load o
-            122 LOAD_NAME                9 (i)                                                           #   load i
-            124 BINARY_SUBSCR                                                                            #   o[i]
-            126 BINARY_MULTIPLY                                                                          #   f * o[i]
-            128 UNARY_INVERT                                                                            #   ~(f * o[i])
-            130 CALL_METHOD              1                                                               #   s.append(~(f * o[i]))
-            132 POP_TOP                                                                                #   discard return value of append
-            134 JUMP_ABSOLUTE           94                                                               #   loop back to FOR_ITER
 
- 20     >>  136 LOAD_NAME               14 (print)                                                       # print(...)
-            138 LOAD_NAME               12 (s)                                                           # load s
-            140 CALL_FUNCTION            1                                                               # print(s)
-            142 POP_TOP                                                                                # discard print result
+# r = f.readlines()[0]
 
- 21         144 LOAD_NAME               14 (print)                                                       # print(...)
-            146 LOAD_NAME                8 (len)                                                         # load len
-            148 LOAD_NAME               12 (s)                                                           # load s
-            150 CALL_FUNCTION            1                                                               # len(s)
-            152 CALL_FUNCTION            1                                                               # print(len(s))
-            154 POP_TOP                                                                                # discard print result
-            156 LOAD_CONST               7 (None)                                                        # push None
-            158 RETURN_VALUE                                                                             # return None from top-level code
+  9          30 LOAD_NAME                3 (f)
+             32 LOAD_METHOD              5 (readlines)
+             34 CALL_METHOD              0
+             36 LOAD_CONST               6 (0)
+             38 BINARY_SUBSCR
+             40 STORE_NAME               6 (r)
+
+
+# for i in range(len(r)):
+#     o.append(ord(r[i]))
+
+ 10          42 LOAD_NAME                7 (range)
+             44 LOAD_NAME                8 (len)
+             46 LOAD_NAME                6 (r)
+             48 CALL_FUNCTION            1
+             50 CALL_FUNCTION            1
+             52 GET_ITER
+        >>   54 FOR_ITER                22 (to 78)
+             56 STORE_NAME               9 (i)
+
+ 12          58 LOAD_NAME                4 (o)
+             60 LOAD_METHOD             10 (append)
+             62 LOAD_NAME               11 (ord)
+             64 LOAD_NAME                6 (r)
+             66 LOAD_NAME                9 (i)
+             68 BINARY_SUBSCR
+             70 CALL_FUNCTION            1
+             72 CALL_METHOD              1
+             74 POP_TOP
+             76 JUMP_ABSOLUTE           54
+
+
+# s = []
+
+ 14     >>   78 BUILD_LIST               0
+             80 STORE_NAME              12 (s)
+
+
+# for i in range(len(o)):
+#     t = gen(i)
+#     f = gen2(t)
+#     s.append(~(f * o[i]))
+
+ 15          82 LOAD_NAME                7 (range)
+             84 LOAD_NAME                8 (len)
+             86 LOAD_NAME                4 (o)
+             88 CALL_FUNCTION            1
+             90 CALL_FUNCTION            1
+             92 GET_ITER
+        >>   94 FOR_ITER                40 (to 136)
+             96 STORE_NAME               9 (i)
+
+ 16          98 LOAD_NAME                0 (gen)
+            100 LOAD_NAME                9 (i)
+            102 CALL_FUNCTION            1
+            104 STORE_NAME              13 (t)
+
+ 17         106 LOAD_NAME                1 (gen2)
+            108 LOAD_NAME               13 (t)
+            110 CALL_FUNCTION            1
+            112 STORE_NAME               3 (f)
+
+ 18         114 LOAD_NAME               12 (s)
+            116 LOAD_METHOD             10 (append)
+            118 LOAD_NAME                3 (f)
+            120 LOAD_NAME                4 (o)
+            122 LOAD_NAME                9 (i)
+            124 BINARY_SUBSCR
+            126 BINARY_MULTIPLY
+            128 UNARY_INVERT
+            130 CALL_METHOD              1
+            132 POP_TOP
+            134 JUMP_ABSOLUTE           94
+
+
+# print(s)
+
+ 20     >>  136 LOAD_NAME               14 (print)
+            138 LOAD_NAME               12 (s)
+            140 CALL_FUNCTION            1
+            142 POP_TOP
+
+
+# print(len(s))
+
+ 21         144 LOAD_NAME               14 (print)
+            146 LOAD_NAME                8 (len)
+            148 LOAD_NAME               12 (s)
+            150 CALL_FUNCTION            1
+            152 CALL_FUNCTION            1
+            154 POP_TOP
+            156 LOAD_CONST               7 (None)
+            158 RETURN_VALUE
+
+
+# def gen(i):
+#     return i ^ 11
 
 Disassembly of <code object gen at 0x7f1e8f527710, file "<dis>", line 1>:
-  2           0 LOAD_FAST                0 (i)                                                           # load argument i
-              2 LOAD_CONST               1 (11)                                                          # load constant 11
-              4 BINARY_XOR                                                                                # compute i ^ 11
-              6 RETURN_VALUE                                                                             # return i ^ 11
+  2           0 LOAD_FAST                0 (i)
+              2 LOAD_CONST               1 (11)
+              4 BINARY_XOR
+              6 RETURN_VALUE
+
+
+# def gen2(i):
+#     return 14 ** i
 
 Disassembly of <code object gen2 at 0x7f1e8f5277c0, file "<dis>", line 4>:
-  5           0 LOAD_CONST               1 (14)                                                          # load constant 14
-              2 LOAD_FAST                0 (i)                                                           # load argument i
-              4 BINARY_POWER                                                                              # compute 14 ** i
-              6 RETURN_VALUE                                                                             # return 14 ** i
+  5           0 LOAD_CONST               1 (14)
+              2 LOAD_FAST                0 (i)
+              4 BINARY_POWER
+              6 RETURN_VALUE
 
 
 ```
