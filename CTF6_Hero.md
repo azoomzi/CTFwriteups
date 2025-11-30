@@ -31,7 +31,7 @@ Reversing Malware
 ............................................................................................................................
 
 
-**2. Unzipping and looking through the CyberPsychosi.zip**
+**2. Unzipping and looking through the Hero.zip**
 
 
 
@@ -227,6 +227,9 @@ print(len(s))
 ```
 
 
+
+
+
 What this script does:
 
 1. Reads flag.txt
@@ -239,6 +242,13 @@ What this script does:
 
 and the printed s list should be exactly what’s inside the flag.enc.
 
+Since logic for s is what prints the flag, let's focus on that part.
+
+
+
+
+
+
 
 
 ............................................................................................................................
@@ -254,21 +264,24 @@ and the printed s list should be exactly what’s inside the flag.enc.
 
 
 
-**4. Looking through functions inside the "diamorphie.ko"**
-
-In Step 2, I discovered that the file was a non-stripped ELF file. So I will list all the functions inside.
-
-<img width="718" height="275" alt="image" src="https://github.com/user-attachments/assets/d6765b40-0008-44b8-9707-e59e7cf230ec" />
-
-Reasearching important functions
-The function init_module() sets everything up when the module is loaded using insmod. It hooks into the system and installs the malicious logic by replacing normal syscalls with its own functions.
-One of those is hacked_kill, a syscall hook that listens for special signals like kill -64. When the module receives signal 64, it does not actually kill the process. Instead, it calls give_root(), which escalates the current process to root privileges (UID 0).
+**4. Understanding the encryption formula**
 
 
-References
-https://linux.die.net/man/2/init_module
-https://github.com/m0nad/Diamorphine#features
-https://dirtycow.ninja/ 
+```
+s = []
+for i in range(len(o)):
+    t = gen(i)              # t = i ^ 11
+    f = gen2(t)             # f = 14 ** t
+    s.append(~(f * o[i]))   # encrypt each character
+```
+
+1. It creates an empty list s and loops over each position i of o (the ASCII codes of the flag characters).
+2. For each i, it computes a per-position key by first scrambling the index t = i ^ 11, then raising 14 to that power: f = 14 ** t.
+3. It encrypts the character by MULTIPY f * o[i], flipping all bits with ~, and appending the result to s --> producing the big negative integers.
+
+
+
+
 
 ............................................................................................................................
 .
@@ -282,46 +295,64 @@ https://dirtycow.ninja/
 ............................................................................................................................
 
 
-**5. Triggering the privilege escalation**
+**5. Create a new formula by reversing the encryption formula**
 
-
-Now that we know init_module() installs the hook, and hacked_kill() listens for signal 64 to trigger give_root(), we can exploit the rootkit manually to get root access. 
-
-We will ncat to the HackTheBox IP address.
 
 ```
-nc <target-ip> <port>
+# a = enc[i]  (the encrypted number at index i)
+t = gen(i)                 # t = i ^ 11
+f = gen2(t)                # f = 14 ** (i ^ 11)
+val = ~a                   # undo NOT:   val = f * ord(char)
+o_i = val // f             # undo *:     o_i = ord(char)
+chars.append(chr(o_i))     # number -> character
 ```
 
-<img width="529" height="110" alt="image" src="https://github.com/user-attachments/assets/3aa2c1bb-2f02-4e30-b840-1e6539fb23c9" />
-
-Now I am connected to the HackTheBox Target machine.
-
-I tried to locate where the diamorphine.ko file is inside the target machine since we need to initate the module there.
-
-```
-find / -type f -name "diamorphine.ko" 2>/dev/null
-```
-
-<img width="470" height="76" alt="image" src="https://github.com/user-attachments/assets/67f8ac8e-f51b-4a49-bc3e-8475a5686933" />
-
-Without root priviledge we can not use /dev/null.
-
-We will escalte to root priviledge by using what I learned in step 3.
-
-- "kill" the process and gain root priviledge
-
-<img width="542" height="188" alt="image" src="https://github.com/user-attachments/assets/a217a36d-4983-44d2-912d-59de202b5953" />
+Logic:
+1. Rebuild the per-index key: t = i ^ 11, f = 14 ** t.
+2. Undo the NOT: val = ~a --> val = f * ord(char). #a is encrypted number
+3. Undo multiply (divide it instead): o_i = val // f, then chr(o_i) --> the character.
 
 
-<img width="541" height="144" alt="image" src="https://github.com/user-attachments/assets/4364ce67-fd5c-46ea-888d-447e641f638c" />
+for example, let's say a = encrypted number = - 70001
 
-Seems that I will need to make the rootkit visible and remove the diamorphine in order for me to actually locate where the file exist.
+a = -70001, which came from a = ~(1000 * 70).
 
-<img width="599" height="323" alt="image" src="https://github.com/user-attachments/assets/ff67307b-60f7-41f5-97e2-c8f6f3e4427b" />
+Since ~x = -x - 1, the inverse is also ~ (it undoes itself).
+
+So:
+
+val = ~a 
+       = ~(-70001) 
+       = -(-70001) - 1 
+       = 70001 - 1 
+       = 70000
 
 
-............................................................................................................................
+**val = 70000 **
+    |
+    V
+    = f * o[i] 
+    = 1000 * 70
+
+so:
+
+**f = 1000**
+o[i] = 70
+
+
+
+
+o_i = **val** // **f **
+    = 70000 // 1000 
+    = 70
+
+chr(o_i) = chr(70) = F (ASCII)
+
+-70001 --> 70000 --> 70 --> 'F' 
+
+
+
+......................................................................................................................
 .
 .
 ............................................................................................................................
