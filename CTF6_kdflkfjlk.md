@@ -1,5 +1,0 @@
-# Maze Writeup
-
-
-
-ujhicushcisuhcisuh
