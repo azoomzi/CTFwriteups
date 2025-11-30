@@ -54,21 +54,128 @@ Unzipped:
 
 
 
-**3. Understanding general concept of "diamorphie.ko"**
+**3. Understanding general concept of "Hero.unknown"**
 
-I wanted see what kind of file actually this is.
-<img width="1010" height="115" alt="image" src="https://github.com/user-attachments/assets/33c0a7cf-c07a-46fb-899e-4cd6073dba4e" />
+Seeing contents inside the file:
 
-It showed that it is a ELF file with debug info + not stripped. This will allow me to explore the function names.
+```
+  1           0 LOAD_CONST               0 (<code object gen at 0x7f1e8f527710, file "<dis>", line 1>)   # push code object for function gen
+              2 LOAD_CONST               1 ('gen')                                                       # push the name "gen"
+              4 MAKE_FUNCTION            0                                                               # create a function object gen
+              6 STORE_NAME               0 (gen)                                                         # store it in variable name gen
 
-I also ran strings on the kernel module to see what human-readable data would be inside.
-<img width="733" height="917" alt="image" src="https://github.com/user-attachments/assets/3dba38a4-c0cd-4b45-ab02-701da51b7b0b" />
-<img width="232" height="30" alt="image" src="https://github.com/user-attachments/assets/22074b0f-ee04-4cc7-9c95-c77b070a3590" />
-<img width="127" height="39" alt="image" src="https://github.com/user-attachments/assets/b2de26d3-8f2e-456e-abde-5f7bfbf7a478" />
-<img width="170" height="36" alt="image" src="https://github.com/user-attachments/assets/d88d9252-f1e4-44f6-9f75-ed931de5c9bc" />
+  4           8 LOAD_CONST               2 (<code object gen2 at 0x7f1e8f5277c0, file "<dis>", line 4>)  # push code object for function gen2
+             10 LOAD_CONST               3 ('gen2')                                                      # push the name "gen2"
+             12 MAKE_FUNCTION            0                                                               # create a function object gen2
+             14 STORE_NAME               1 (gen2)                                                        # store it in variable name gen2
+
+  7          16 LOAD_NAME                2 (open)                                                        # load built-in function open
+             18 LOAD_CONST               4 ('flag.txt')                                                  # push string "flag.txt"
+             20 LOAD_CONST               5 ('r')                                                         # push string "r" (read mode)
+             22 CALL_FUNCTION            2                                                               # call open('flag.txt', 'r')
+             24 STORE_NAME               3 (f)                                                           # f = open("flag.txt", "r")
+
+  8          26 BUILD_LIST               0                                                               # build empty list []
+             28 STORE_NAME               4 (o)                                                           # o = []
+
+  9          30 LOAD_NAME                3 (f)                                                           # load f
+             32 LOAD_METHOD              5 (readlines)                                                   # load method f.readlines
+             34 CALL_METHOD              0                                                               # call f.readlines()
+             36 LOAD_CONST               6 (0)                                                           # push constant 0
+             38 BINARY_SUBSCR                                                                              # index result[0]
+             40 STORE_NAME               6 (r)                                                           # r = f.readlines()[0]
+
+ 10          42 LOAD_NAME                7 (range)                                                       # load range
+             44 LOAD_NAME                8 (len)                                                         # load len
+             46 LOAD_NAME                6 (r)                                                           # load r
+             48 CALL_FUNCTION            1                                                               # len(r)
+             50 CALL_FUNCTION            1                                                               # range(len(r))
+             52 GET_ITER                                                                                # get iterator over range(...)
+        >>   54 FOR_ITER                22 (to 78)                                                       # for i in range(len(r)):
+             56 STORE_NAME               9 (i)                                                           #   i = loop index
+
+ 12          58 LOAD_NAME                4 (o)                                                           #   load list o
+             60 LOAD_METHOD             10 (append)                                                      #   load o.append
+             62 LOAD_NAME               11 (ord)                                                         #   load ord
+             64 LOAD_NAME                6 (r)                                                           #   load r (flag line)
+             66 LOAD_NAME                9 (i)                                                           #   load i
+             68 BINARY_SUBSCR                                                                            #   r[i]
+             70 CALL_FUNCTION            1                                                               #   ord(r[i])
+             72 CALL_METHOD              1                                                               #   o.append(ord(r[i]))
+             74 POP_TOP                                                                                #   discard return value of append
+             76 JUMP_ABSOLUTE           54                                                               # loop back to FOR_ITER
+
+ 14     >>   78 BUILD_LIST               0                                                               # build empty list []
+             80 STORE_NAME              12 (s)                                                           # s = []
+
+ 15          82 LOAD_NAME                7 (range)                                                       # load range
+             84 LOAD_NAME                8 (len)                                                         # load len
+             86 LOAD_NAME                4 (o)                                                           # load o
+             88 CALL_FUNCTION            1                                                               # len(o)
+             90 CALL_FUNCTION            1                                                               # range(len(o))
+             92 GET_ITER                                                                                # get iterator over range(...)
+        >>   94 FOR_ITER                40 (to 136)                                                      # for i in range(len(o)):
+             96 STORE_NAME               9 (i)                                                           #   i = loop index
+
+ 16          98 LOAD_NAME                0 (gen)                                                         #   load function gen
+            100 LOAD_NAME                9 (i)                                                           #   load i
+            102 CALL_FUNCTION            1                                                               #   gen(i)
+            104 STORE_NAME              13 (t)                                                           #   t = gen(i)
+
+ 17         106 LOAD_NAME                1 (gen2)                                                        #   load function gen2
+            108 LOAD_NAME               13 (t)                                                           #   load t
+            110 CALL_FUNCTION            1                                                               #   gen2(t)
+            112 STORE_NAME               3 (f)                                                           #   f = gen2(t)
+
+ 18         114 LOAD_NAME               12 (s)                                                           #   load list s
+            116 LOAD_METHOD             10 (append)                                                      #   load s.append
+            118 LOAD_NAME                3 (f)                                                           #   load f
+            120 LOAD_NAME                4 (o)                                                           #   load o
+            122 LOAD_NAME                9 (i)                                                           #   load i
+            124 BINARY_SUBSCR                                                                            #   o[i]
+            126 BINARY_MULTIPLY                                                                          #   f * o[i]
+            128 UNARY_INVERT                                                                            #   ~(f * o[i])
+            130 CALL_METHOD              1                                                               #   s.append(~(f * o[i]))
+            132 POP_TOP                                                                                #   discard return value of append
+            134 JUMP_ABSOLUTE           94                                                               #   loop back to FOR_ITER
+
+ 20     >>  136 LOAD_NAME               14 (print)                                                       # print(...)
+            138 LOAD_NAME               12 (s)                                                           # load s
+            140 CALL_FUNCTION            1                                                               # print(s)
+            142 POP_TOP                                                                                # discard print result
+
+ 21         144 LOAD_NAME               14 (print)                                                       # print(...)
+            146 LOAD_NAME                8 (len)                                                         # load len
+            148 LOAD_NAME               12 (s)                                                           # load s
+            150 CALL_FUNCTION            1                                                               # len(s)
+            152 CALL_FUNCTION            1                                                               # print(len(s))
+            154 POP_TOP                                                                                # discard print result
+            156 LOAD_CONST               7 (None)                                                        # push None
+            158 RETURN_VALUE                                                                             # return None from top-level code
+
+Disassembly of <code object gen at 0x7f1e8f527710, file "<dis>", line 1>:
+  2           0 LOAD_FAST                0 (i)                                                           # load argument i
+              2 LOAD_CONST               1 (11)                                                          # load constant 11
+              4 BINARY_XOR                                                                                # compute i ^ 11
+              6 RETURN_VALUE                                                                             # return i ^ 11
+
+Disassembly of <code object gen2 at 0x7f1e8f5277c0, file "<dis>", line 4>:
+  5           0 LOAD_CONST               1 (14)                                                          # load constant 14
+              2 LOAD_FAST                0 (i)                                                           # load argument i
+              4 BINARY_POWER                                                                              # compute 14 ** i
+              6 RETURN_VALUE                                                                             # return 14 ** i
 
 
-We can see that the .ko file is a rootkit that can escalate privileges from "commit_creds, prepare_creds, register_kprobe"
+```
+
+
+
+
+
+
+
+
+
 
 ............................................................................................................................
 .
