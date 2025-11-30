@@ -44,7 +44,7 @@ Unzipped:
 
 
 
-
+It looks like the file does not have any extention.
 
 ............................................................................................................................
 .
@@ -59,7 +59,7 @@ Unzipped:
 
 
 
-**3. Understanding general concept of "diamorphie.ko"**
+**3. Understanding general concept of "rega_town file"**
 
 I wanted see what kind of file actually this is.
 <img width="1010" height="115" alt="image" src="https://github.com/user-attachments/assets/33c0a7cf-c07a-46fb-899e-4cd6073dba4e" />
