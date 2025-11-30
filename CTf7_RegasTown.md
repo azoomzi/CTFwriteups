@@ -31,11 +31,17 @@ I am going to use Kali Linux for this CTF. You do not need connection to HTB for
 
 **2. Unzipping and looking through the CyberPsychosi.zip**
 
+<img width="574" height="280" alt="image" src="https://github.com/user-attachments/assets/a3ac7198-89de-47c1-974a-f72337155950" />
+
+
+
 
 
 Unzipped:
 
-<img width="548" height="513" alt="image" src="https://github.com/user-attachments/assets/048a1a7e-64f0-4acf-b33e-26c9159e4c8a" />
+<img width="617" height="292" alt="image" src="https://github.com/user-attachments/assets/b5efb023-c9ea-44fc-8df3-9d3abdcedaa6" /> <img width="603" height="348" alt="image" src="https://github.com/user-attachments/assets/628f2071-02a9-461a-8eb7-7806dac000eb" />
+
+
 
 
 
