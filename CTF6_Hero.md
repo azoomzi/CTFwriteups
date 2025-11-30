@@ -59,7 +59,7 @@ Unzipped:
 
 **3. Understanding general concept of "Hero.unknown"**
 
-Seeing contents inside the file(I added comments so it's easier to understand):
+Seeing contents inside the file(I added comments so it's easier to understand SLIDE TO RIGHT):
 
 ```
 # def gen(i):
