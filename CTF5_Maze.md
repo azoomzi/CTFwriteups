@@ -214,6 +214,18 @@ I decompiled it by using "uncompyle6". When I looked at the decompiled obf_path.
 
 
 
+<img width="579" height="165" alt="image" src="https://github.com/user-attachments/assets/a19bc6c7-30a4-4b38-a6a3-ad927ff203e9" />
+
+
+
+So the module inside the obf_path.pyc code ran, but instead of giving me the real hint it basically told me “you’re in the wrong place, go back to the previous path.” That made me think this module is meant to be executed from the original challenge directory, next to the other files (maze.exe, enc_maze.zip, maze.png), and that it probably uses one of those files as input and also since enc_maze.zip and maze were already explained in maze.pyc, the only unexplained file left was maze.png, so I suspected obf_path was using the PNG.
+
+
+
+
+<img width="591" height="283" alt="image" src="https://github.com/user-attachments/assets/79e90bb1-f322-452a-a3e6-374620a526bb" />
+
+Now I know the program wants me to use random.seed(493) and generate 300 values with randint(32,125) to build the missing key.
 
 
 
