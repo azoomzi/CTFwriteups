@@ -1,4 +1,4 @@
-# Maze Writeup
+<img width="554" height="252" alt="image" src="https://github.com/user-attachments/assets/c8bff5cf-e0a2-45a4-8187-58c3c61c849e" /># Maze Writeup
 by Azumi Yasukohchi
 
 
@@ -232,6 +232,8 @@ Now I know the program wants me to use random.seed(493) and generate 300 values 
 
 
 
+
+
 ............................................................................................................................
 .
 .
@@ -244,14 +246,144 @@ Now I know the program wants me to use random.seed(493) and generate 300 values 
 ............................................................................................................................
 
 
-**6. Finding the flag**
+**6. Fixing the broken key logic in maze_decompiled.py**
 
 
-Now we know that it is located in: /opt/psychosis/diamorphine.ko
+Changes we need to make:
 
-We will go to that directory and see if there would be any hints or text file I can read.
+- Add import random
+- Replace the key = [0] * len(data) block with RNG logic we the seed we got from obf_path.pyc.
 
-<img width="602" height="192" alt="image" src="https://github.com/user-attachments/assets/370784de-805e-489d-94ea-dbcb00f57ce0" />
+```
+# uncompyle6 version 3.9.3
+# Python bytecode version base 3.8.0 (3413)
+# Decompiled from: Python 3.8.18 (default, Nov 26 2025, 17:02:02) 
+# [GCC 14.3.0]
+# Embedded file name: maze.py
+import sys #,obf_path
+import random  # <--- added
+ZIPFILE = "enc_maze.zip"
+print("Look who comes to me :)")
+print()
+inp = input("Now There are two paths from here. Which path will u choose? => ")
+if inp == "Y0u_St1ll_1N_4_M4z3":
+    pass #obf_path.obfuscate_route()
+else:
+    print("Unfortunately, this path leads to a dead end.")
+    sys.exit(0)
+import pyzipper
 
-I found the flag! Thank you for reading!
+def decrypt(file_path, word):
+    with pyzipper.AESZipFile(file_path, "r", compression=(pyzipper.ZIP_LZMA), encryption=(pyzipper.WZ_AES)) as extracted_zip:
+        try:
+            extracted_zip.extractall(pwd=word)
+        except RuntimeError as ex:
+            try:
+                try:
+                    print(ex)
+                finally:
+                    ex = None
+                    del ex
+
+            finally:
+                ex = None
+                del ex
+
+
+decrypt(ZIPFILE, "Y0u_Ar3_W4lkiNG_t0_Y0uR_D34TH".encode())
+with open("maze", "rb") as file:
+    content = file.read()
+data = bytearray(content)
+data = [x for x in data]
+
+
+# FIXED: use seed(493) and 300 x randint(32,125) as the key
+random.seed(493)
+key = [random.randint(32, 125) for _ in range(300)]
+
+
+
+
+
+
+
+
+for i in range(0, len(data), 10):
+    data[i] = (data[i] + 80) % 256
+else:
+    for i in range(0, len(data), 10):
+        data[i] = (data[i] ^ key[i % len(key)]) % 256
+    else:
+        with open("dec_maze", "wb") as f:
+            for b in data:
+                f.write(bytes([b]))
+
+# okay decompiling maze.exe_extracted/maze.pyc
+
+
+
+
+
+```
+
+<img width="613" height="111" alt="image" src="https://github.com/user-attachments/assets/78b0148a-6ab8-422a-86ba-dc5c9c1d3f88" />
+
+
+Now it should've given out the dec_maze file.
+
+Let's list the directory for confirmation.
+
+<img width="914" height="98" alt="image" src="https://github.com/user-attachments/assets/109da05d-df47-4134-91a4-9db9fca6316f" />
+
+YAY
+
+Now let's check the file type of this file.
+
+
+<img width="944" height="84" alt="image" src="https://github.com/user-attachments/assets/4f578711-870e-4c88-bead-1930af8f78e0" />
+
+Now that I know this file is an executable, I can open it in Ghidra to analyze what it actually does. My goal is to find the part of the code that reads my input, see how it checks that input against some internal values (like an encrypted array), and then use that logic to reconstruct the exact flag the program expects.
+
+
+
+
+
+<img width="975" height="870" alt="image" src="https://github.com/user-attachments/assets/d253f307-25de-4ee4-85b6-a19e8f4d6682" />
+
+
+I loaded dec_maze into Ghidra and then searched for the function fgets in the Symbol Tree on the left. Since fgets is commonly used to read user input, I right-clicked it and opened the Function Call Trees window (bottom-left). There was only one caller, FUN_00100169, so I double-clicked it to jump there. In the middle Listing and right Decompile panels you can see this function: it calls fgets(local_58, 0x40, stdin) to read my input, checks that the first three bytes are 'H', 'T', 'B', and then runs a loop that compares sums of three consecutive characters from my input against a hardcoded integer array in .rodata.
+
+
+
+
+
+<img width="624" height="585" alt="image" src="https://github.com/user-attachments/assets/5bfe7ebe-c099-45cc-959a-93fda5947f70" />
+
+
+
+After finding the flag-checking loop, I looked at the global array it was using for the comparisons. In the decompiler, this array was referenced as something like INT_ARRAY_00102060, so I double-clicked that symbol to jump to it in the Listing window (center). There, I right-clicked the address and chose Data → Define Array…, set the type to int and the length to 36, and Ghidra displayed the whole int[36] array you can see in the screenshot (values like 0DEh, 111h, 134h, etc). These 36 integers are the “encrypted sums” that the program compares against s[i-1] + s[i] + s[i+1].
+
+
+<img width="1044" height="1026" alt="image" src="https://github.com/user-attachments/assets/abd972c5-7e80-4aba-93fe-ccd10693697c" />
+
+
+I later copied them out and used them in a Python script to recover the original flag.
+
+
+
+
+From the decompiled C code, I saw that the program first checked the prefix HTB, and then used the following rule in a loop:
+encrypted[i] == input[i-1] + input[i] + input[i+1].
+Since I already knew input[0] = 'H', input[1] = 'T', and input[2] = 'B', I could turn this around and solve for each next character:
+input[i+1] = encrypted[i] - input[i-1] - input[i]. Using the 36 integers I copied from Ghidra, I wrote a small Python script that starts with [ 'H', 'T', 'B' ], applies this formula in a loop, and appends each newly recovered character to the flag string.                                                                                                                                                                                                                                               
+
+
+
+
+<img width="554" height="252" alt="image" src="https://github.com/user-attachments/assets/0576865d-c782-45e4-a21d-3a91d1ba6175" />
+
+
+
+now we got the flag, thanks for reading!!!
+
 
