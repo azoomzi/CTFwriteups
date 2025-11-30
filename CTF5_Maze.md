@@ -74,10 +74,10 @@ So let's Run "file" and "strings" on maze.exe to learn what kind of files there 
 
 
 
-
+.
 <img width="359" height="52" alt="image" src="https://github.com/user-attachments/assets/2b15439d-3469-4cef-b862-37619ebe6bd8" />
 
-
+.
 
 
 <img width="628" height="854" alt="image" src="https://github.com/user-attachments/assets/1b4ea9be-bae7-4d05-b1c2-189d0abe4b82" />
