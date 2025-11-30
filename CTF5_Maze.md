@@ -62,7 +62,7 @@ There is another zipped file inside it so i tried unzipping it with same passwor
 
 
 
-**3. Tackling maze.exe first **
+**3. Tackling maze.exe first**
 
 started with maze.exe because executables almost always contain the main logic and tell you how other files like the png/zip are used, while those are usually just data.
 
