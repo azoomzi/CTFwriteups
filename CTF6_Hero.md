@@ -318,6 +318,8 @@ Logic:
 
 for example, let's say a = encrypted number = - 70001
 
+```
+
 a = -70001, which came from a = ~(1000 * 70).
 
 Since ~x = -x - 1, the inverse is also ~ (it undoes itself).
@@ -353,6 +355,7 @@ chr(o_i) = chr(70) = F (ASCII)
 
 -70001 --> 70000 --> 70 --> 'F' 
 
+```
 
 
 
