@@ -197,9 +197,13 @@ I double clicked again to go to actual address which is 0042603b
 I copied using "Copy Data" and it gave me the full blob:
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ```
+
 ^.{33}$(?:^[\x48][\x54][\x42]).*^.{3}(\x7b).*(\x7d)$^[[:upper:]]{3}.[[:upper:]].{3}[[:upper:]].{3}[[:upper:]].{3}[[:upper:]].{4}[[:upper:]].{2}[[:upper:]].{3}[[:upper:]].{4}$(?:.*\x5f.*)(?:.[^0-9]*\d.*){5}.{24}\x54.\x65.\x54.*^.{4}[X-Z]\d._[A]\D\d.................[[:upper:]][n-x]{2}[n|c].$.{11}_T[h|7]\d_[[:upper:]]\dn[a-h]_[O]\d_[[:alpha:]]{3}_.{5}
+
 ```
+
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 Since it is supposed to be 9 regex, we now need to separate them into 9 piecies.
