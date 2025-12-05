@@ -17,22 +17,21 @@ https://app.hackthebox.com/challenges/Rega's%2520Town
 
 I am going to use Kali Linux for this CTF. You do not need connection to HTB for this CTF so we are skipping the connect to openVPN part.
 
-............................................................................................................................
-.
-.
-............................................................................................................................
-.
-.
-.............................................................................................................................
-.
-.
-............................................................................................................................
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
 
 
 **2. Unzipping and looking through the CyberPsychosi.zip**
 
 <img width="574" height="280" alt="image" src="https://github.com/user-attachments/assets/a3ac7198-89de-47c1-974a-f72337155950" />
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 
@@ -42,6 +41,10 @@ Unzipped:
 <img width="617" height="292" alt="image" src="https://github.com/user-attachments/assets/b5efb023-c9ea-44fc-8df3-9d3abdcedaa6" /> <img width="603" height="348" alt="image" src="https://github.com/user-attachments/assets/628f2071-02a9-461a-8eb7-7806dac000eb" />
 
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 It looks like the file does not have any extention.
@@ -67,6 +70,8 @@ I wanted see what kind of file actually this is.
 
 This file can be executable.
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 I decided to run it to see what the program does.
 I needed to change the permission to be able to run it so
@@ -75,24 +80,37 @@ I needed to change the permission to be able to run it so
 then:
 <img width="301" height="118" alt="image" src="https://github.com/user-attachments/assets/88f9c25f-cb07-48f3-9344-d2f9fc12fd02" />
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 
 Since it was executable file, I decided to analyze it through Ghidra
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 I went to "Defined strings" and seached for "Welcome to" as that is where the code starts.
 
 <img width="962" height="484" alt="image" src="https://github.com/user-attachments/assets/a953fee2-2e62-4017-ab63-28dfb82bb187" />
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 <img width="1412" height="1004" alt="image" src="https://github.com/user-attachments/assets/5779309c-2be0-4058-8eda-dffa850a8196" />
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 It lead me to core logic. Now we can find out how this binary decide whether my input is correct.
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 <img width="1412" height="1004" alt="image" src="https://github.com/user-attachments/assets/af7d4d82-c045-411a-9861-79039ae1bec1" />
 
 Let's take a closer look at the decompile, specifically this part:
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
 
 ```
 std::io::stdio::stdin();
@@ -119,6 +137,8 @@ else {
     }
 }
 ```
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 Why this matters
 From this we deduce:
@@ -132,30 +152,41 @@ From this we deduce:
    - chars[9] == 'r'
 7. Only if all conditions are true → prints "Correct one of us!!".
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
 So "main" is telling us:
 There are exactly three layers of constraints:
 1. filter_input (structural / regex)
 2. check_input (content logic)
 3. Two character checks at positions 5 and 9
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 Let's go to filter_input to see what the logic behind of the first step.
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <img width="969" height="1035" alt="image" src="https://github.com/user-attachments/assets/05e5bb74-d943-4f6b-a3ed-5cd5af7e28bc" />
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 What I can logically conclude from this
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 memcpy(local_d8, &PTR_s_^.{33}$(?:... ), 0x90);
 --> There is some static data, referenced by PTR_s_^.{33}…, copied into a local buffer.
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 core::array::iter::into_iter<&str,_9>(&local_268, (&str (*) [9])local_d8);
 --> That static data is interpreted as an array of 9 &str values.
 
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <img width="637" height="783" alt="image" src="https://github.com/user-attachments/assets/e758947f-b33d-4732-a3fc-d56c39e8688b" />
 
 Now I know that filter_input enforces that the user input must match all 9 regex patterns stored in static memory near PTR_s_^.{33}...
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 Reasoning for where to look next:
 
@@ -172,13 +203,16 @@ I double clicked again to go to actual address which is 0042603b
 
 
 I copied using "Copy Data" and it gave me the full blob:
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 ```
 ^.{33}$(?:^[\x48][\x54][\x42]).*^.{3}(\x7b).*(\x7d)$^[[:upper:]]{3}.[[:upper:]].{3}[[:upper:]].{3}[[:upper:]].{3}[[:upper:]].{4}[[:upper:]].{2}[[:upper:]].{3}[[:upper:]].{4}$(?:.*\x5f.*)(?:.[^0-9]*\d.*){5}.{24}\x54.\x65.\x54.*^.{4}[X-Z]\d._[A]\D\d.................[[:upper:]][n-x]{2}[n|c].$.{11}_T[h|7]\d_[[:upper:]]\dn[a-h]_[O]\d_[[:alpha:]]{3}_.{5}
 ```
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 Since it is supposed to be 9 regex, we now need to separate them into 9 piecies.
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 The pattern is each one:
 - Has balanced ( / ) / [] / {}.
@@ -188,6 +222,8 @@ The pattern is each one:
 
 so by following that pattern:
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 ```
 1.  ^.{33}$
@@ -209,17 +245,12 @@ so by following that pattern:
 9.  .{11}_T[h|7]\d_[[:upper:]]\dn[a-h]_[O]\d_[[:alpha:]]{3}_.{5}
 
 ```
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
-............................................................................................................................
-.
-.
-............................................................................................................................
-.
-.
-.............................................................................................................................
-.
-.
-............................................................................................................................
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
 
 
 
