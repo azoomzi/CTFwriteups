@@ -148,8 +148,7 @@ From this we deduce:
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
-So "main" is telling us:
-There are exactly three layers of constraints:
+So "main" is telling us that there are exactly three layers of constraints:
 1. filter_input (structural / regex)
 2. check_input (content logic)
 3. Two character checks at positions 5 and 9
