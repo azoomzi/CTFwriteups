@@ -64,16 +64,10 @@ It looks like the file does not have any extention.
 I wanted see what kind of file actually this is.
 <img width="1010" height="115" alt="image" src="https://github.com/user-attachments/assets/33c0a7cf-c07a-46fb-899e-4cd6073dba4e" />
 
-It showed that it is a ELF file with debug info + not stripped. This will allow me to explore the function names.
-
-I also ran strings on the kernel module to see what human-readable data would be inside.
-<img width="733" height="917" alt="image" src="https://github.com/user-attachments/assets/3dba38a4-c0cd-4b45-ab02-701da51b7b0b" />
-<img width="232" height="30" alt="image" src="https://github.com/user-attachments/assets/22074b0f-ee04-4cc7-9c95-c77b070a3590" />
-<img width="127" height="39" alt="image" src="https://github.com/user-attachments/assets/b2de26d3-8f2e-456e-abde-5f7bfbf7a478" />
-<img width="170" height="36" alt="image" src="https://github.com/user-attachments/assets/d88d9252-f1e4-44f6-9f75-ed931de5c9bc" />
 
 
-We can see that the .ko file is a rootkit that can escalate privileges from "commit_creds, prepare_creds, register_kprobe"
+
+<img width="962" height="484" alt="image" src="https://github.com/user-attachments/assets/a953fee2-2e62-4017-ab63-28dfb82bb187" />
 
 ............................................................................................................................
 .
