@@ -62,12 +62,30 @@ It looks like the file does not have any extention.
 **3. Understanding general concept of "rega_town file"**
 
 I wanted see what kind of file actually this is.
-<img width="1010" height="115" alt="image" src="https://github.com/user-attachments/assets/33c0a7cf-c07a-46fb-899e-4cd6073dba4e" />
+
+<img width="951" height="88" alt="image" src="https://github.com/user-attachments/assets/6ad9914b-6faa-4a18-8959-be52399cd29c" />
+
+This file can be executable.
+
+
+I decided to run it to see what the program does.
+I needed to change the permission to be able to run it so
+<img width="233" height="71" alt="image" src="https://github.com/user-attachments/assets/4d9ed2f3-0586-434d-9d04-56becc65a5f2" />
+
+then:
+<img width="301" height="118" alt="image" src="https://github.com/user-attachments/assets/88f9c25f-cb07-48f3-9344-d2f9fc12fd02" />
 
 
 
+
+Since it was executable file, I decided to analyze it through Ghidra
+
+
+I went to "Defined strings" and seached for "Welcome to" as that is where the code starts.
 
 <img width="962" height="484" alt="image" src="https://github.com/user-attachments/assets/a953fee2-2e62-4017-ab63-28dfb82bb187" />
+
+
 
 ............................................................................................................................
 .
