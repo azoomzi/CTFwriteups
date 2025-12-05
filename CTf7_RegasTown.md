@@ -59,7 +59,7 @@ It looks like the file does not have any extention.
 
 
 
-**3. Understanding general concept of "rega_town file"**
+**3. Understanding concept of "rega_town file"**
 
 I wanted see what kind of file actually this is.
 
@@ -86,6 +86,129 @@ I went to "Defined strings" and seached for "Welcome to" as that is where the co
 <img width="962" height="484" alt="image" src="https://github.com/user-attachments/assets/a953fee2-2e62-4017-ab63-28dfb82bb187" />
 
 
+<img width="1412" height="1004" alt="image" src="https://github.com/user-attachments/assets/5779309c-2be0-4058-8eda-dffa850a8196" />
+
+It lead me to core logic. Now we can find out how this binary decide whether my input is correct.
+
+<img width="1412" height="1004" alt="image" src="https://github.com/user-attachments/assets/af7d4d82-c045-411a-9861-79039ae1bec1" />
+
+Let's take a closer look at the decompile, specifically this part:
+
+```
+std::io::stdio::stdin();
+std::io::stdio::Stdin::read_line();
+...
+local_168 = core::str::trim_end(&Var2);
+local_154 = filter_input(local_168);
+if (local_154 == 0) {
+    print("Maybe next time :<");
+}
+else {
+    ::alloc::string::to_string(&local_150,&local_200);
+    uVar1 = check_input(&local_150);
+    local_154 = uVar1 & local_154;
+    if (local_154 != 0) {
+        local_50 = ::alloc::vec::index<>(&local_180,5);
+        ...
+        if (*local_50 != L'0') panic;
+        ...
+        local_40 = ::alloc::vec::index<>(&local_180,9);
+        ...
+        if (*local_40 != L'r') panic;
+        print("Correct one of us!!");
+    }
+}
+```
+
+Why this matters
+From this we deduce:
+1. The user input is stored in local_200 (a String).
+2. It is trimmed --> local_168.
+3. Validation has 2 phases:
+4. filter_input(trimmed_input) --> returns 0 or 1
+5. check_input(&local_150) --> returns 0 or 1
+6. Then two extra checks:
+   - chars[5] == '0'
+   - chars[9] == 'r'
+7. Only if all conditions are true → prints "Correct one of us!!".
+
+So "main" is telling us:
+There are exactly three layers of constraints:
+1. filter_input (structural / regex)
+2. check_input (content logic)
+3. Two character checks at positions 5 and 9
+
+
+Let's go to filter_input to see what the logic behind of the first step.
+
+<img width="969" height="1035" alt="image" src="https://github.com/user-attachments/assets/05e5bb74-d943-4f6b-a3ed-5cd5af7e28bc" />
+
+What I can logically conclude from this
+
+memcpy(local_d8, &PTR_s_^.{33}$(?:... ), 0x90);
+--> There is some static data, referenced by PTR_s_^.{33}…, copied into a local buffer.
+
+core::array::iter::into_iter<&str,_9>(&local_268, (&str (*) [9])local_d8);
+--> That static data is interpreted as an array of 9 &str values.
+
+
+<img width="637" height="783" alt="image" src="https://github.com/user-attachments/assets/e758947f-b33d-4732-a3fc-d56c39e8688b" />
+
+Now I know that filter_input enforces that the user input must match all 9 regex patterns stored in static memory near PTR_s_^.{33}...
+
+
+Reasoning for where to look next:
+
+Since now i know the patterns themselves decide what the flag looks like, I will inspect the data behind PTR_s_^.{33}...
+
+I double clicked on the PTR_s_^.{33}... and it led me to the actual place where it stores the blob
+
+
+<img width="1232" height="1042" alt="image" src="https://github.com/user-attachments/assets/e006b510-5036-40f1-b380-ab9acf00300f" />
+
+I double clicked again to go to actual address which is 0042603b
+
+<img width="1907" height="1024" alt="image" src="https://github.com/user-attachments/assets/54814936-b3d6-4c99-8c1a-c45106ccb6b6" />
+
+
+I copied using "Copy Data" and it gave me the full blob:
+
+```
+^.{33}$(?:^[\x48][\x54][\x42]).*^.{3}(\x7b).*(\x7d)$^[[:upper:]]{3}.[[:upper:]].{3}[[:upper:]].{3}[[:upper:]].{3}[[:upper:]].{4}[[:upper:]].{2}[[:upper:]].{3}[[:upper:]].{4}$(?:.*\x5f.*)(?:.[^0-9]*\d.*){5}.{24}\x54.\x65.\x54.*^.{4}[X-Z]\d._[A]\D\d.................[[:upper:]][n-x]{2}[n|c].$.{11}_T[h|7]\d_[[:upper:]]\dn[a-h]_[O]\d_[[:alpha:]]{3}_.{5}
+```
+
+Since it is supposed to be 9 regex, we now need to separate them into 9 piecies.
+
+
+The pattern is each one:
+- Has balanced ( / ) / [] / {}.
+- Uses anchors ^ and $ in a sane way.
+- $ goes at the end of each
+- ^ always goes in the front
+
+so by following that pattern:
+
+
+```
+1.  ^.{33}$
+
+2.  (?:^[\x48][\x54][\x42]).*
+
+3.  ^.{3}(\x7b).*
+
+4.  (\x7d)$
+
+5.  ^[[:upper:]]{3}.[[:upper:]].{3}[[:upper:]].{3}[[:upper:]].{3}[[:upper:]].{4}[[:upper:]].{2}[[:upper:]].{3}[[:upper:]].{4}$
+
+6.  (?:.*\x5f.*)
+
+7.  (?:.[^0-9]*\d.*){5}.{24}\x54.\x65.\x54.*
+
+8.  ^.{4}[X-Z]\d._[A]\D\d.................[[:upper:]][n-x]{2}[n|c].$
+
+9.  .{11}_T[h|7]\d_[[:upper:]]\dn[a-h]_[O]\d_[[:alpha:]]{3}_.{5}
+
+```
 
 ............................................................................................................................
 .
